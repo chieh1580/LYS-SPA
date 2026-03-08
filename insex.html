@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LYS 美妍 SPA 館</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f0ea;
+    --warm-white: #faf8f5;
+    --clay: #9a8270;
+    --clay-dark: #7d6856;
+    --clay-light: #c4b4a4;
+    --dark: #3d3530;
+    --dark-bg: #5a5040;
+    --text: #4a3f38;
+    --text-light: #8a7a72;
+    --circle-stroke: rgba(154,130,112,0.3);
+    --divider: rgba(154,130,112,0.4);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Serif TC', serif;
+    background: var(--warm-white);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 60px;
+    background: rgba(250,248,245,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(154,130,112,0.12);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem; letter-spacing: .45em; color: var(--dark);
+    font-weight: 400; text-transform: uppercase;
+  }
+  .nav-links { display: flex; align-items: center; gap: 40px; }
+  .nav-links a {
+    font-size: .78rem; letter-spacing: .22em; color: var(--text);
+    text-decoration: none; transition: color .3s;
+  }
+  .nav-links a:hover { color: var(--clay); }
+  .nav-cta {
+    background: var(--clay); color: #fff !important;
+    padding: 11px 24px; font-size: .78rem !important;
+    letter-spacing: .18em !important; transition: background .3s !important;
+  }
+  .nav-cta:hover { background: var(--clay-dark) !important; }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative; min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    background: var(--cream); overflow: hidden;
+  }
+  .hero-circle {
+    position: absolute; border-radius: 50%;
+    border: 1px solid var(--circle-stroke);
+    animation: floatCircle 8s ease-in-out infinite;
+  }
+  .hero-circle:nth-child(1) { width: 170px; height: 170px; top: 9%; left: 3%; animation-delay: 0s; }
+  .hero-circle:nth-child(2) { width: 90px; height: 90px; top: 60%; right: 8%; animation-delay: 2s; }
+  .hero-circle:nth-child(3) { width: 220px; height: 220px; bottom: 5%; right: 1%; animation-delay: 4s; }
+  @keyframes floatCircle {
+    0%,100% { transform: translateY(0) scale(1); opacity: .7; }
+    50% { transform: translateY(-18px) scale(1.03); opacity: 1; }
+  }
+  .hero-dot {
+    position: absolute; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--clay-light); opacity: .5;
+  }
+  .hero-dot:nth-child(4) { top: 25%; left: 27%; }
+  .hero-dot:nth-child(5) { bottom: 35%; left: 50%; }
+  .hero-dot:nth-child(6) { top: 55%; right: 25%; }
+  .hero-line {
+    width: 1px; height: 60px; background: var(--clay-light);
+    margin-bottom: 28px; opacity: .6;
+    animation: growLine 1.2s ease forwards;
+  }
+  @keyframes growLine { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif; font-size: .8rem;
+    letter-spacing: .5em; color: var(--text-light); margin-bottom: 22px;
+    animation: fadeUp .8s ease .3s both;
+  }
+  .hero-title {
+    font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+    font-weight: 400; line-height: 1.22; text-align: center;
+    letter-spacing: .04em; color: var(--dark);
+    animation: fadeUp .9s ease .5s both;
+  }
+  .hero-desc {
+    margin-top: 20px; font-size: .92rem;
+    letter-spacing: .12em; color: var(--text-light);
+    animation: fadeUp .8s ease .7s both;
+  }
+  .hero-btn {
+    margin-top: 42px;
+    display: inline-block; background: var(--clay); color: #fff;
+    padding: 16px 44px; font-family: 'Noto Serif TC', serif;
+    font-size: .85rem; letter-spacing: .22em;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: background .35s, transform .25s;
+    animation: fadeUp .8s ease .9s both;
+  }
+  .hero-btn:hover { background: var(--clay-dark); transform: translateY(-2px); }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SECTIONS COMMON ── */
+  section { position: relative; overflow: hidden; }
+  .label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: .72rem; letter-spacing: .5em;
+    color: var(--text-light); display: block; margin-bottom: 14px;
+  }
+  h2.section-title {
+    font-size: clamp(1.7rem, 3vw, 2.5rem);
+    font-weight: 400; line-height: 1.3; color: var(--dark);
+  }
+  .divider {
+    width: 40px; height: 1px; background: var(--clay);
+    margin: 22px 0 28px;
+  }
+  p.body-text {
+    font-size: .9rem; line-height: 1.95; color: var(--text-light);
+    max-width: 480px;
+  }
+  p.body-text + p.body-text { margin-top: 16px; }
+
+  /* ── ABOUT ── */
+  #about {
+    padding: 120px 60px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+    background: var(--warm-white);
+  }
+  .about-visual {
+    position: relative; display: flex; align-items: center; justify-content: center;
+  }
+  .about-card {
+    background: var(--cream); border-radius: 4px;
+    width: 100%; max-width: 420px; aspect-ratio: 3/3.5;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    box-shadow: 0 4px 40px rgba(90,80,64,.07);
+  }
+  .plant-svg { width: 65%; opacity: .9; }
+  .about-icons {
+    margin-top: 40px; display: flex; gap: 50px; flex-wrap: wrap;
+  }
+  .icon-item {
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+  }
+  .icon-circle {
+    width: 52px; height: 52px; border-radius: 50%;
+    border: 1px solid var(--clay-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; color: var(--clay);
+    transition: background .3s, color .3s;
+  }
+  .icon-circle:hover { background: var(--clay); color: #fff; }
+  .icon-label { font-size: .75rem; letter-spacing: .12em; color: var(--text-light); }
+
+  /* ── SERVICES ── */
+  #services {
+    padding: 120px 60px;
+    background: var(--cream); text-align: center;
+  }
+  #services .section-header { margin-bottom: 70px; }
+  #services .divider { margin: 22px auto 28px; }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 32px; max-width: 1100px; margin: 0 auto; text-align: left;
+  }
+  .service-card {
+    background: var(--warm-white); border-radius: 4px;
+    overflow: hidden; transition: transform .35s, box-shadow .35s;
+    box-shadow: 0 2px 20px rgba(90,80,64,.05);
+  }
+  .service-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(90,80,64,.12); }
+  .service-img {
+    width: 100%; height: 240px;
+    background: var(--cream); display: flex;
+    align-items: center; justify-content: center;
+    overflow: hidden; position: relative;
+  }
+  .service-body { padding: 32px; }
+  .service-tag {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: .72rem; letter-spacing: .42em;
+    color: var(--text-light); display: block; margin-bottom: 10px;
+  }
+  .service-name {
+    font-size: 1.25rem; font-weight: 400;
+    color: var(--dark); margin-bottom: 16px; letter-spacing: .04em;
+  }
+  .service-desc {
+    font-size: .84rem; line-height: 1.9; color: var(--text-light); margin-bottom: 18px;
+  }
+  .service-list {
+    list-style: none; display: flex; flex-direction: column; gap: 6px;
+  }
+  .service-list li {
+    font-size: .8rem; color: var(--text-light);
+    padding-left: 16px; position: relative;
+  }
+  .service-list li::before {
+    content: '•'; position: absolute; left: 0; color: var(--clay);
+  }
+
+  /* ── HERITAGE ── */
+  #heritage {
+    padding: 110px 60px;
+    background: var(--dark-bg); color: #e8dfd5;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  #heritage .label { color: rgba(232,223,213,.55); }
+  #heritage h2.section-title { color: #e8dfd5; }
+  #heritage .divider { background: rgba(232,223,213,.4); }
+  #heritage p.body-text { color: rgba(232,223,213,.75); max-width: 520px; }
+  .heritage-stats {
+    display: flex; gap: 28px; margin-top: 40px;
+  }
+  .stat-box {
+    border: 1px solid rgba(232,223,213,.25);
+    padding: 24px 30px; flex: 1; text-align: center;
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif; font-size: 2.2rem;
+    font-weight: 300; color: #e8dfd5; letter-spacing: .04em;
+  }
+  .stat-label { font-size: .75rem; color: rgba(232,223,213,.55); margin-top: 6px; letter-spacing: .12em; }
+  .heritage-visual {
+    position: relative; display: flex; align-items: center; justify-content: center;
+  }
+  .heritage-card {
+    background: rgba(90,80,64,.45); border-radius: 4px;
+    width: 100%; max-width: 400px; aspect-ratio: 1;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    border: 1px solid rgba(232,223,213,.1);
+  }
+  .heritage-rings {
+    position: absolute; width: 220px; height: 220px;
+    border-radius: 50%; border: 1px solid rgba(232,223,213,.15);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .heritage-rings::before {
+    content: ''; position: absolute; inset: 20px;
+    border-radius: 50%; border: 1px solid rgba(232,223,213,.1);
+  }
+  .quote-box {
+    position: absolute; bottom: -20px; right: -24px;
+    background: var(--warm-white); padding: 22px 26px;
+    max-width: 280px; box-shadow: 0 6px 30px rgba(0,0,0,.15);
+    border-radius: 2px;
+  }
+  .quote-text {
+    font-size: .83rem; line-height: 1.8; color: var(--text);
+    font-style: italic; margin-bottom: 10px;
+  }
+  .quote-author { font-size: .72rem; letter-spacing: .16em; color: var(--text-light); }
+
+  /* ── CONTACT ── */
+  #contact {
+    padding: 120px 60px;
+    background: var(--warm-white); text-align: center;
+  }
+  #contact .divider { margin: 22px auto 28px; }
+  .contact-sub {
+    font-size: .88rem; line-height: 1.9; color: var(--text-light);
+    margin-bottom: 52px;
+  }
+  .contact-form {
+    max-width: 560px; margin: 0 auto;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .form-input, .form-select, .form-textarea {
+    width: 100%; padding: 16px 20px;
+    background: var(--cream); border: 1px solid rgba(154,130,112,.22);
+    font-family: 'Noto Serif TC', serif; font-size: .88rem;
+    color: var(--text); outline: none;
+    transition: border-color .3s;
+    border-radius: 2px; letter-spacing: .06em;
+  }
+  .form-input::placeholder, .form-textarea::placeholder { color: var(--text-light); }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--clay);
+  }
+  .form-select { appearance: none; cursor: pointer; }
+  .form-select option[value=""] { color: var(--text-light); }
+  .form-textarea { resize: none; height: 130px; line-height: 1.7; }
+  .submit-btn {
+    background: var(--clay); color: #fff; border: none; cursor: pointer;
+    padding: 18px; font-family: 'Noto Serif TC', serif;
+    font-size: .88rem; letter-spacing: .28em;
+    transition: background .3s, transform .2s;
+    border-radius: 2px;
+  }
+  .submit-btn:hover { background: var(--clay-dark); transform: translateY(-2px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark-bg); color: rgba(232,223,213,.55);
+    text-align: center; padding: 30px 60px;
+    font-size: .76rem; letter-spacing: .16em;
+  }
+  footer span { color: rgba(232,223,213,.35); }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 18px 24px; }
+    .nav-links a:not(.nav-cta) { display: none; }
+    #about, #heritage { grid-template-columns: 1fr; padding: 80px 28px; }
+    #services { padding: 80px 28px; }
+    .services-grid { grid-template-columns: 1fr; }
+    #contact { padding: 80px 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">L Y S</div>
+  <div class="nav-links">
+    <a href="#about">品牌</a>
+    <a href="#services">服務</a>
+    <a href="#heritage">傳承</a>
+    <a href="#contact" class="nav-cta">預約諮詢</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-circle"></div>
+  <div class="hero-circle"></div>
+  <div class="hero-circle"></div>
+  <div class="hero-dot"></div>
+  <div class="hero-dot"></div>
+  <div class="hero-dot"></div>
+  <div class="hero-line"></div>
+  <p class="hero-sub">L Y S</p>
+  <h1 class="hero-title">遇見純粹．步步扎實</h1>
+  <p class="hero-desc">讓每一次觸及，都如艾草般溫潤人心</p>
+  <a href="#contact" class="hero-btn">溫暖客服無縫預約</a>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-visual reveal">
+    <div class="about-card">
+      <!-- Plant SVG illustration -->
+      <svg class="plant-svg" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="105" r="82" fill="rgba(196,180,164,0.25)" />
+        <circle cx="100" cy="105" r="82" stroke="rgba(154,130,112,0.2)" fill="none" />
+        <!-- leaves -->
+        <ellipse cx="100" cy="72" rx="28" ry="36" fill="#9a8270" opacity=".8" transform="rotate(-10 100 72)"/>
+        <ellipse cx="80" cy="82" rx="22" ry="32" fill="#9a8270" opacity=".65" transform="rotate(-35 80 82)"/>
+        <ellipse cx="120" cy="80" rx="22" ry="32" fill="#9a8270" opacity=".6" transform="rotate(25 120 80)"/>
+        <!-- stem -->
+        <path d="M100 108 C97 130 92 148 88 168" stroke="#7d6856" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+        <path d="M100 108 C102 130 106 148 110 165" stroke="#7d6856" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- dots on circle -->
+        <circle cx="100" cy="23" r="2.5" fill="rgba(154,130,112,0.4)"/>
+        <circle cx="182" cy="105" r="2.5" fill="rgba(154,130,112,0.4)"/>
+      </svg>
+    </div>
+  </div>
+  <div class="about-text reveal">
+    <span class="label">ABOUT LYS</span>
+    <h2 class="section-title">大師底蘊<br>無可取代的品牌靈魂</h2>
+    <div class="divider"></div>
+    <p class="body-text">LYS，源自北歐古語「光」的意涵。我們相信，真正的美麗，始於身心的和諧平衡。</p>
+    <p class="body-text" style="margin-top:16px">品牌核心承載「五行漢方、深層經絡」的古老智慧，融合佛學禪意的溫度與覺察。每一帖方、每一道手法，皆是歲月淬煉的珍貴傳承。</p>
+    <p class="body-text" style="margin-top:16px">我們堅持親採手作，從艾草的採挖到精油的調配，不妥協的細節，只為讓每一次觸及，都能喚醒您內在本有的光芒。</p>
+    <div class="about-icons">
+      <div class="icon-item">
+        <div class="icon-circle">☯</div>
+        <span class="icon-label">五行平衡</span>
+      </div>
+      <div class="icon-item">
+        <div class="icon-circle">🌿</div>
+        <span class="icon-label">親採手作</span>
+      </div>
+      <div class="icon-item">
+        <div class="icon-circle">○</div>
+        <span class="icon-label">禪意覺察</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-header reveal">
+    <span class="label">SERVICES</span>
+    <h2 class="section-title">告別容貌焦慮<br>重塑內調外理的高階質感</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-img">
+        <!-- Product bottles SVG -->
+        <svg viewBox="0 0 280 200" style="width:78%;height:78%" xmlns="http://www.w3.org/2000/svg">
+          <rect x="60" y="60" width="50" height="110" rx="4" fill="#c4a882" opacity=".9"/>
+          <rect x="68" y="48" width="34" height="14" rx="3" fill="#b09070"/>
+          <rect x="74" y="40" width="22" height="10" rx="2" fill="#9a8270"/>
+          <rect x="130" y="80" width="40" height="90" rx="3" fill="#d4bc9e" opacity=".9"/>
+          <rect x="136" y="70" width="28" height="12" rx="2" fill="#c4a882"/>
+          <rect x="182" y="90" width="35" height="80" rx="3" fill="#b09070" opacity=".85"/>
+          <rect x="187" y="82" width="25" height="10" rx="2" fill="#9a8270"/>
+          <!-- decorative circles -->
+          <circle cx="45" cy="130" r="28" fill="rgba(154,130,112,0.18)"/>
+          <circle cx="235" cy="100" r="22" fill="rgba(154,130,112,0.14)"/>
+          <!-- small m shape -->
+          <path d="M190 148 C192 143 195 148 198 143 C201 148 204 143 206 148" stroke="#c4a882" stroke-width="1.5" fill="none"/>
+        </svg>
+      </div>
+      <div class="service-body">
+        <span class="service-tag">SERVICE A</span>
+        <h3 class="service-name">深層五行身心舒緩</h3>
+        <p class="service-desc">以五行相生的古老智慧，結合深層經絡手法。從肩頸到足底，層層疏通淤滯。讓身體在溫熱的艾草香氣中，找回流動的節奏，釋放緊積的疲憊與壓力。</p>
+        <ul class="service-list">
+          <li>深層經絡疏通按摩</li>
+          <li>五行精油能量調理</li>
+          <li>艾草溫灸舒緩療程</li>
+        </ul>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-img">
+        <!-- Face meridian SVG -->
+        <svg viewBox="0 0 280 200" style="width:78%;height:78%" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="140" cy="100" rx="70" ry="75" stroke="#c4b4a4" stroke-width="1.2" fill="rgba(196,180,164,0.12)"/>
+          <ellipse cx="140" cy="100" rx="50" ry="54" stroke="#c4b4a4" stroke-width="0.9" fill="rgba(196,180,164,0.08)"/>
+          <ellipse cx="140" cy="100" rx="28" ry="30" stroke="#c4b4a4" stroke-width="0.7" fill="rgba(196,180,164,0.08)"/>
+          <circle cx="140" cy="100" r="10" fill="rgba(154,130,112,0.35)" stroke="#c4b4a4" stroke-width="1"/>
+          <circle cx="140" cy="100" r="3.5" fill="#9a8270" opacity=".7"/>
+          <!-- meridian dots -->
+          <circle cx="140" cy="25" r="2.5" fill="rgba(154,130,112,0.5)"/>
+          <circle cx="140" cy="175" r="2.5" fill="rgba(154,130,112,0.5)"/>
+          <circle cx="70" cy="100" r="2.5" fill="rgba(154,130,112,0.5)"/>
+          <circle cx="210" cy="100" r="2.5" fill="rgba(154,130,112,0.5)"/>
+        </svg>
+      </div>
+      <div class="service-body">
+        <span class="service-tag">SERVICE B</span>
+        <h3 class="service-name">面部經絡禪意調理</h3>
+        <p class="service-desc">臉龐是心靈的映照。透過精準的面部撥筋手法，喚醒沉睡的肌膚生機。在如禪定般的寧靜中，讓緊繃的線條柔和，讓暗沉的氣色透亮，重拾由內而外的自信光采。</p>
+        <ul class="service-list">
+          <li>面部撥筋提拉緊緻</li>
+          <li>穴位按壓氣色調理</li>
+          <li>淡方面膜深層滋養</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HERITAGE -->
+<section id="heritage">
+  <div class="heritage-text reveal">
+    <span class="label">EDUCATION</span>
+    <h2 class="section-title">傳承的溫度</h2>
+    <div class="divider"></div>
+    <p class="body-text">技藝的傳承，從來不只是手法的複製。而是將數十年淬煉的心法，一點一滴地灌注給下一代。</p>
+    <p class="body-text" style="margin-top:16px">LYS「撥筋師培育計畫」，承襲大師親授的嚴謹態度。從經絡走向的認識，到手感力道的細膩掌控，每一堂課都是師徒之間的真摯對話。</p>
+    <p class="body-text" style="margin-top:16px">我們見證了無數學員的蛻變──從茫然到自信，從生疏到精熟。這份傳承的溫度，正是 LYS 最珍貴的資產。</p>
+    <div class="heritage-stats">
+      <div class="stat-box">
+        <div class="stat-num">15+</div>
+        <div class="stat-label">年教學經驗</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">200+</div>
+        <div class="stat-label">培育學員</div>
+      </div>
+    </div>
+  </div>
+  <div class="heritage-visual reveal">
+    <div class="heritage-card">
+      <div class="heritage-rings">
+        <!-- book/wisdom icon -->
+        <svg viewBox="0 0 80 80" width="60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="22" width="42" height="36" rx="3" stroke="rgba(232,223,213,0.5)" stroke-width="1.5"/>
+          <rect x="26" y="28" width="28" height="3" rx="1.5" fill="rgba(232,223,213,0.35)"/>
+          <rect x="26" y="35" width="22" height="3" rx="1.5" fill="rgba(232,223,213,0.35)"/>
+          <rect x="26" y="42" width="18" height="3" rx="1.5" fill="rgba(232,223,213,0.35)"/>
+          <circle cx="40" cy="57" r="3" fill="rgba(232,223,213,0.5)"/>
+          <line x1="40" y1="18" x2="40" y2="22" stroke="rgba(232,223,213,0.4)" stroke-width="1.2" stroke-dasharray="2 2"/>
+        </svg>
+      </div>
+      <p style="position:absolute;bottom:14px;right:20px;font-size:.68rem;letter-spacing:.3em;color:rgba(232,223,213,.3)">傳 ‧ 承</p>
+    </div>
+    <div class="quote-box">
+      <p class="quote-text">「真正的技藝，是用心感受每一寸肌膚的呼吸。」</p>
+      <p class="quote-author">— LYS 創辦人</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="reveal">
+    <span class="label">CONTACT</span>
+    <h2 class="section-title">開啟您的療癒之旅</h2>
+    <div class="divider"></div>
+    <p class="contact-sub">每一段旅程，都始於第一步的勇氣。<br>讓我們用溫柔的雙手，陪伴您找回身心的平衡與光采。</p>
+    <div class="contact-form">
+      <input class="form-input" type="text" placeholder="您的姓名">
+      <input class="form-input" type="tel" placeholder="聯絡電話">
+      <select class="form-select">
+        <option value="" disabled selected>請選擇諮詢項目</option>
+        <option>深層五行身心舒緩</option>
+        <option>面部經絡禪意調理</option>
+        <option>撥筋師培育課程</option>
+        <option>其他諮詢</option>
+      </select>
+      <textarea class="form-textarea" placeholder="想對我們說的話..."></textarea>
+      <button class="submit-btn">遞 出 預 約</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2024 LYS 美妍 SPA 館 &nbsp;<span>｜</span>&nbsp; 以光為名，以手為藥</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Stagger cards
+  document.querySelectorAll('.service-card').forEach((card, i) => {
+    card.style.transitionDelay = `${i * 0.15}s`;
+  });
+</script>
+</body>
+</html>
