@@ -656,6 +656,61 @@
   .history-pts { font-size: 11px; color: var(--warm-gray); }
   .history-note { font-size: 11.5px; color: var(--warm-gray); font-style: italic; border-left: 2px solid rgba(201,169,110,0.25); padding-left: 8px; line-height: 1.6; }
 
+
+  /* ── Calendar ── */
+  .cal-section-label {
+    font-size: 11px; color: var(--warm-gray);
+    font-family: 'Montserrat', sans-serif; letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+  .cal-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .cal-month-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px; color: var(--text-main); letter-spacing: 0.06em;
+  }
+  .cal-nav {
+    background: none; border: 1px solid rgba(201,169,110,0.25);
+    border-radius: 6px; color: var(--gold); font-size: 16px;
+    width: 28px; height: 28px; cursor: pointer; line-height: 1;
+    transition: all 0.15s;
+  }
+  .cal-nav:hover { background: rgba(201,169,110,0.12); border-color: var(--gold); }
+  .cal-weekdays {
+    display: grid; grid-template-columns: repeat(7,1fr);
+    margin-bottom: 4px;
+  }
+  .cal-weekdays span {
+    text-align: center; font-size: 10px;
+    color: var(--warm-gray); font-family: 'Montserrat', sans-serif;
+    padding: 2px 0;
+  }
+  .cal-grid {
+    display: grid; grid-template-columns: repeat(7,1fr);
+    gap: 3px; margin-bottom: 4px;
+  }
+  .cal-day {
+    aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+    font-size: 12px; border-radius: 50%; cursor: pointer;
+    color: var(--text-main); font-family: 'Montserrat', sans-serif;
+    transition: all 0.15s; border: 1px solid transparent;
+  }
+  .cal-day:hover:not(.cal-empty):not(.cal-past):not(.cal-closed) {
+    background: rgba(201,169,110,0.15); border-color: rgba(201,169,110,0.3);
+  }
+  .cal-day.selected {
+    background: var(--gold); color: #111010; font-weight: 400;
+    border-color: var(--gold);
+  }
+  .cal-day.today { border-color: rgba(201,169,110,0.5); color: var(--gold); }
+  .cal-day.cal-past, .cal-day.cal-closed {
+    color: rgba(138,129,120,0.35); cursor: default; pointer-events: none;
+  }
+  .cal-day.cal-empty { pointer-events: none; }
+  .cal-day.cal-closed { text-decoration: line-through; }
+
 </style>
 </head>
 <body>
@@ -1038,28 +1093,26 @@ function getTeacherName() {
 }
 
 // Send booking confirmation message into chat
-async function sendBookingConfirmMsg(treatmentName, time) {
+async function sendBookingConfirmMsg(treatmentName, time, dateLabel) {
   const teacher = getTeacherName();
-  const date = getTodayDate();
+  const dateStr = dateLabel || getTodayDate();
   closeModal();
   isAnimating = true;
 
-  // User side: confirmation action
-  await addUserMsg(`📅 確認預約 ${time}`);
+  await addUserMsg(`📅 確認預約 ${dateStr} ${time}`);
   await sleep(300);
 
-  // Bot confirmation message
+  const treatmentLine = treatmentName ? `<br>療程：<em>${treatmentName}</em>` : '';
   const confirmBubble = `
     ✅ 已為您預約完成！<br><br>
     <em>${teacher}</em> 將在<br>
-    <em>${date} ${time}</em><br>
+    <em>${dateStr}</em><br>
+    <em>${time}</em>${treatmentLine}<br><br>
     為您進行療程 🌿<br><br>
     如需更改或取消，請提前 2 小時與我們聯繫。<br>
     期待與您相見 🫶
   `;
   await addBotMsg(confirmBubble.trim(), 1000);
-
-  // Follow-up reminder
   await addBotMsg(`溫馨提醒：療程前請避免大量進食，穿著舒適衣物前來，讓身體能夠完全放鬆 🌸`, 1200);
 
   isAnimating = false;
@@ -1067,22 +1120,127 @@ async function sendBookingConfirmMsg(treatmentName, time) {
 
 // General booking (from 線上預約 menu)
 function confirmGeneralBooking() {
+  if (!selectedDate) { showToastMsg('請選擇預約日期 📅'); return; }
   const timeSelected = document.querySelector('.time-slot.selected');
   if (!timeSelected) { showToastMsg('請選擇時段 🕐'); return; }
+  const [y, m, d] = selectedDate.split('-');
+  const days = ['日','一','二','三','四','五','六'];
+  const weekday = days[new Date(+y, +m-1, +d).getDay()];
+  const dateLabel = `${y} / ${m} / ${d}（週${weekday}）`;
   const time = timeSelected.textContent;
-  sendBookingConfirmMsg('', time);
+  sendBookingConfirmMsg('', time, dateLabel);
 }
 
 // Point-based booking (from 我的會員)
 function confirmPtsBooking() {
   const selected = document.querySelector('.treatment-item.selected');
-  const timeSelected = document.querySelector('.time-slot.selected');
   if (!selected) { showToastMsg('請先選擇療程項目 🌿'); return; }
+  if (!selectedDate) { showToastMsg('請選擇預約日期 📅'); return; }
+  const timeSelected = document.querySelector('.time-slot.selected');
   if (!timeSelected) { showToastMsg('請選擇時段 🕐'); return; }
   const name = selected.querySelector('.treatment-name').textContent;
+  const [y, m, d] = selectedDate.split('-');
+  const days = ['日','一','二','三','四','五','六'];
+  const weekday = days[new Date(+y, +m-1, +d).getDay()];
+  const dateLabel = `${y} / ${m} / ${d}（週${weekday}）`;
   const time = timeSelected.textContent;
-  sendBookingConfirmMsg(name, time);
+  sendBookingConfirmMsg(name, time, dateLabel);
 }
+
+
+// ── Calendar Logic ────────────────────────────────────────────────────────────
+let calYear, calMonth, selectedDate = null;
+
+function initCal() {
+  const now = new Date();
+  calYear  = now.getFullYear();
+  calMonth = now.getMonth();
+  selectedDate = null;
+  renderCal();
+}
+
+function calShift(dir) {
+  calMonth += dir;
+  if (calMonth > 11) { calMonth = 0; calYear++; }
+  if (calMonth < 0)  { calMonth = 11; calYear--; }
+  renderCal();
+}
+
+function renderCal() {
+  const grid  = document.getElementById('calGrid');
+  const label = document.getElementById('calMonthLabel');
+  if (!grid || !label) return;
+
+  const monthNames = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+  label.textContent = calYear + ' · ' + monthNames[calMonth];
+
+  const today    = new Date();
+  const firstDay = new Date(calYear, calMonth, 1).getDay();  // 0=Sun
+  const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+
+  let html = '';
+  // empty cells before 1st
+  for (let i = 0; i < firstDay; i++) html += '<div class="cal-day cal-empty"></div>';
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const date = new Date(calYear, calMonth, d);
+    const isPast   = date < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const isClosed = date.getDay() === 0; // 週日休假（示範用，可調整）
+    const isToday  = date.toDateString() === today.toDateString();
+    const dateStr  = calYear + '-' + String(calMonth+1).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+    const isSelected = selectedDate === dateStr;
+
+    let cls = 'cal-day';
+    if (isPast)    cls += ' cal-past';
+    if (isClosed && !isPast) cls += ' cal-closed';
+    if (isToday)   cls += ' today';
+    if (isSelected) cls += ' selected';
+
+    const handler = (!isPast && !isClosed)
+      ? `onclick="selectCalDay('${dateStr}', this)"`
+      : '';
+
+    html += `<div class="${cls}" ${handler}>${d}</div>`;
+  }
+  grid.innerHTML = html;
+  updateBookingSummary();
+}
+
+function selectCalDay(dateStr, el) {
+  selectedDate = dateStr;
+  document.querySelectorAll('.cal-day.selected').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  updateBookingSummary();
+}
+
+function selectTime(el) {
+  document.querySelectorAll('.time-slot.selected').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  updateBookingSummary();
+}
+
+function updateBookingSummary() {
+  const summary = document.getElementById('booking-summary');
+  if (!summary) return;
+  const timeEl = document.querySelector('.time-slot.selected');
+  const time   = timeEl ? timeEl.textContent : null;
+  if (selectedDate && time) {
+    const [y, m, d] = selectedDate.split('-');
+    const days = ['日','一','二','三','四','五','六'];
+    const weekday = days[new Date(+y, +m-1, +d).getDay()];
+    summary.innerHTML = `✦ ${y} / ${m} / ${d}（週${weekday}）· ${time}`;
+  } else if (selectedDate) {
+    const [y, m, d] = selectedDate.split('-');
+    summary.innerHTML = `✦ ${y} / ${m} / ${d} · 請選擇時段`;
+  } else if (time) {
+    summary.innerHTML = `✦ ${time} · 請選擇日期`;
+  } else {
+    summary.innerHTML = '';
+  }
+}
+
+// Re-init calendar every time booking modal opens
+// initCal is called inside the real openModal below
 
 // ── Rich Menu ─────────────────────────────────────────────────────────────
 
@@ -1097,17 +1255,19 @@ function openModal(type) {
   const content = document.getElementById('modalContent');
   content.innerHTML = getModalContent(type);
   overlay.classList.add('open');
-  // bind faq toggles
   document.querySelectorAll('.faq-item').forEach(item => {
     item.addEventListener('click', () => item.classList.toggle('open'));
   });
-  // bind time slots
   document.querySelectorAll('.time-slot').forEach(slot => {
     slot.addEventListener('click', function() {
       document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
       this.classList.add('selected');
+      updateBookingSummary();
     });
   });
+  if (type === 'booking' || type === 'member-booking') {
+    initCal();
+  }
 }
 
 function closeModal() {
@@ -1121,22 +1281,36 @@ function getModalContent(type) {
   if (type === 'booking') return `
     <div class="modal-title">📅 線上預約</div>
     <div class="modal-sub">ONLINE BOOKING</div>
-    <div class="modal-body">請選擇您偏好的日期與時段，我們的老師將為您保留專屬位置 🌿</div>
     <div class="modal-divider"></div>
-    <div style="font-size:11px;color:var(--warm-gray);font-family:'Montserrat',sans-serif;letter-spacing:0.1em;margin-bottom:8px;">選擇時段</div>
-    <div class="time-grid">
-      <div class="time-slot">10:00</div>
-      <div class="time-slot">11:00</div>
-      <div class="time-slot">13:00</div>
-      <div class="time-slot">14:00</div>
-      <div class="time-slot">15:00</div>
-      <div class="time-slot">16:00</div>
-      <div class="time-slot">19:00</div>
-      <div class="time-slot">20:00</div>
-      <div class="time-slot">21:00</div>
+
+    <div class="cal-section-label">選擇日期</div>
+    <div class="cal-header">
+      <button class="cal-nav" onclick="calShift(-1)">‹</button>
+      <div class="cal-month-label" id="calMonthLabel"></div>
+      <button class="cal-nav" onclick="calShift(1)">›</button>
     </div>
+    <div class="cal-weekdays">
+      <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+
     <div class="modal-divider"></div>
-    <button class="modal-btn primary" onclick="confirmGeneralBooking()">確認預約時段</button>
+    <div class="cal-section-label">選擇時段</div>
+    <div class="time-grid" id="timeGrid">
+      <div class="time-slot" onclick="selectTime(this)">10:00</div>
+      <div class="time-slot" onclick="selectTime(this)">11:00</div>
+      <div class="time-slot" onclick="selectTime(this)">13:00</div>
+      <div class="time-slot" onclick="selectTime(this)">14:00</div>
+      <div class="time-slot" onclick="selectTime(this)">15:00</div>
+      <div class="time-slot" onclick="selectTime(this)">16:00</div>
+      <div class="time-slot" onclick="selectTime(this)">19:00</div>
+      <div class="time-slot" onclick="selectTime(this)">20:00</div>
+      <div class="time-slot" onclick="selectTime(this)">21:00</div>
+    </div>
+
+    <div id="booking-summary" style="font-size:12px;color:var(--gold);text-align:center;margin-top:10px;min-height:18px;letter-spacing:0.04em;"></div>
+    <div class="modal-divider"></div>
+    <button class="modal-btn primary" onclick="confirmGeneralBooking()">確認預約</button>
     <button class="modal-btn secondary" onclick="showToastMsg('即將開啟 LINE 客服...');closeModal();">💬 直接詢問老師</button>
   `;
 
@@ -1194,19 +1368,32 @@ function getModalContent(type) {
     </div>
 
     <div class="modal-divider"></div>
-    <div style="font-size:11px;color:var(--warm-gray);font-family:'Montserrat',sans-serif;letter-spacing:0.1em;margin-bottom:8px;">選擇時段</div>
-    <div class="time-grid">
-      <div class="time-slot">10:00</div>
-      <div class="time-slot">11:00</div>
-      <div class="time-slot">13:00</div>
-      <div class="time-slot">14:00</div>
-      <div class="time-slot">15:00</div>
-      <div class="time-slot">16:00</div>
-      <div class="time-slot">19:00</div>
-      <div class="time-slot">20:00</div>
-      <div class="time-slot">21:00</div>
+    <div class="cal-section-label">選擇日期</div>
+    <div class="cal-header">
+      <button class="cal-nav" onclick="calShift(-1)">‹</button>
+      <div class="cal-month-label" id="calMonthLabel"></div>
+      <button class="cal-nav" onclick="calShift(1)">›</button>
+    </div>
+    <div class="cal-weekdays">
+      <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+
+    <div class="modal-divider"></div>
+    <div class="cal-section-label">選擇時段</div>
+    <div class="time-grid" id="timeGrid">
+      <div class="time-slot" onclick="selectTime(this)">10:00</div>
+      <div class="time-slot" onclick="selectTime(this)">11:00</div>
+      <div class="time-slot" onclick="selectTime(this)">13:00</div>
+      <div class="time-slot" onclick="selectTime(this)">14:00</div>
+      <div class="time-slot" onclick="selectTime(this)">15:00</div>
+      <div class="time-slot" onclick="selectTime(this)">16:00</div>
+      <div class="time-slot" onclick="selectTime(this)">19:00</div>
+      <div class="time-slot" onclick="selectTime(this)">20:00</div>
+      <div class="time-slot" onclick="selectTime(this)">21:00</div>
     </div>
     <div id="pts-summary" style="font-size:12px;color:var(--warm-gray);text-align:right;margin-top:8px;"></div>
+    <div id="booking-summary" style="font-size:12px;color:var(--gold);text-align:center;margin-top:6px;min-height:18px;letter-spacing:0.04em;"></div>
     <div class="modal-divider"></div>
     <button class="modal-btn primary" onclick="confirmPtsBooking()">✅ 確認點數預約</button>
     <button class="modal-btn secondary" onclick="openModal('member')">← 返回會員中心</button>
