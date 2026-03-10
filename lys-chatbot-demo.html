@@ -1602,10 +1602,55 @@ async function callCareAI(history) {
       })
     });
     const data = await res.json();
-    return data?.content?.[0]?.text || '不好意思，剛才訊號有點問題，可以再說一次嗎？😊';
+    if (data?.content?.[0]?.text) return data.content[0].text;
+    // API 有回應但格式不對 → 用本地兜底
+    return localCareReply(history);
   } catch(e) {
-    return '不好意思，剛才訊號有點問題，可以再說一次嗎？😊';
+    // 網路失敗（Demo 環境） → 用本地兜底
+    return localCareReply(history);
   }
+}
+
+// ── 本地暖心備援回覆（Demo 環境 / API 無金鑰時使用）─────────────────────────
+function localCareReply(history) {
+  const last = history.filter(h => h.role === 'user').pop()?.content || '';
+  const t = last.toLowerCase();
+
+  // 痠痛類
+  if (/痠|酸|痛|不舒服|硬|緊|重/.test(t)) {
+    const replies = [
+      '撥筋後的痠感是筋膜在重新調整的正常反應，通常 1-2 天就會慢慢消退 🌿<br><br>這段時間多喝溫水，睡前可以輕輕伸展一下肩頸，會舒服很多。',
+      '這個痠痠的感覺代表身體有在變化喔，是好現象 💆<br><br>建議不要用力揉它，用熱敷輕輕放鬆就好，有需要的話也可以再來調整一次。',
+    ];
+    return replies[Math.floor(Math.random() * replies.length)];
+  }
+
+  // 好轉、讚美類
+  if (/好|棒|輕|讚|舒服|不錯|有效|改善|差很多|明顯/.test(t)) {
+    const replies = [
+      '聽到這樣真的好開心 🌸<br><br>身體慢慢找回它自己的節奏，才是最重要的。下次想繼續保養的時候，隨時都可以來找我們喔。',
+      '太好了！效果能讓你有感受到，我們也很開心 🫶<br><br>記得固定保養，效果會越來越穩定的。',
+    ];
+    return replies[Math.floor(Math.random() * replies.length)];
+  }
+
+  // 想預約類
+  if (/預約|再來|下次|安排|時間|什麼時候/.test(t)) {
+    return '當然沒問題！你比較習慣平日還是假日呢？<br><br>我來幫你看看哪個時段有位置 📅';
+  }
+
+  // 睡眠類
+  if (/睡|失眠|睡不著|睡眠/.test(t)) {
+    return '撥筋之後睡眠品質改善是很常見的反應，整個神經系統都放鬆了 🌙<br><br>如果還是睡得不穩，可以下次跟老師說，我們可以加強一下頭頸肩的部分。';
+  }
+
+  // 一般回應
+  const general = [
+    '謝謝你告訴我這些 🌿<br><br>身體的變化有時候需要多給它一點時間，如果這幾天有什麼不舒服，隨時都可以跟我們說。',
+    '嗯嗯，聽起來身體還在慢慢調整 🌱<br><br>這幾天多讓自己休息一下，有什麼需要我們都在。',
+    '謝謝你跟我們分享 🫶<br><br>照顧好自己，下次見到你希望你狀態更好。',
+  ];
+  return general[Math.floor(Math.random() * general.length)];
 }
 
 function showCareBookingHint() {
