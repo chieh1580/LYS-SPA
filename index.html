@@ -1,24 +1,34 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LYS 美妍 SPA 館</title>
+<title>LYS 美妍 SPA 館 — 身若草木，養在根本</title>
+<meta name="description" content="結合食療、節氣、經絡的療癒撥經。順時而養，因地而食，循經而通。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600;700;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --cream: #f5f0ea;
-    --warm-white: #faf8f5;
-    --clay: #9a8270;
-    --clay-dark: #7d6856;
-    --clay-light: #c4b4a4;
-    --dark: #3d3530;
-    --dark-bg: #5a5040;
-    --text: #4a3f38;
-    --text-light: #8a7a72;
-    --circle-stroke: rgba(154,130,112,0.3);
-    --divider: rgba(154,130,112,0.4);
+    /* 主色系 — 草木、土壤、墨韻 */
+    --paper: #F5EDDB;          /* 米宣紙 */
+    --paper-warm: #EFE4CC;     /* 暖米 */
+    --paper-deep: #E6D7B8;     /* 深米 */
+    --ink: #2A231A;            /* 墨色 */
+    --ink-soft: #4A3E30;       /* 淡墨 */
+    --earth: #7A5239;          /* 土褐 */
+    --earth-deep: #4A2F1F;     /* 深可可 */
+    --gold: #C8A47A;           /* 香檳金 */
+    --gold-soft: #D8BE9A;      /* 淺金 */
+    --sage: #8B9A7E;           /* 鼠尾草綠 */
+    --moss: #5A6B4A;           /* 苔綠 */
+    --moss-deep: #3D4A33;      /* 深苔 */
+    --clay: #B8654A;           /* 赤陶 */
+    --mist: #EAE2D1;           /* 霧色 */
+
+    --serif-zh: 'Noto Serif TC', 'Songti TC', 'PingFang TC', serif;
+    --display-en: 'Fraunces', 'Cormorant Garamond', Georgia, serif;
+    --italic-en: 'Cormorant Garamond', Georgia, serif;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -26,539 +36,1950 @@
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'Noto Serif TC', serif;
-    background: var(--warm-white);
-    color: var(--text);
+    font-family: var(--serif-zh);
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.8;
     overflow-x: hidden;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+    position: relative;
   }
 
-  /* ── NAV ── */
+  /* 紙紋底色 */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(122, 82, 57, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(139, 154, 126, 0.04) 0%, transparent 50%),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/><feColorMatrix values='0 0 0 0 0.3 0 0 0 0 0.25 0 0 0 0 0.2 0 0 0 0.08 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.6;
+  }
+
+  .container { max-width: 1240px; margin: 0 auto; padding: 0 40px; position: relative; z-index: 2; }
+
+  /* ============ NAV ============ */
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 22px 60px;
-    background: rgba(250,248,245,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(154,130,112,0.12);
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: rgba(245, 237, 219, 0.88);
+    backdrop-filter: blur(16px) saturate(1.2);
+    -webkit-backdrop-filter: blur(16px) saturate(1.2);
+    z-index: 100;
+    border-bottom: 1px solid rgba(122, 82, 57, 0.12);
+    transition: all 0.4s ease;
+  }
+  .nav-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 16px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
   .nav-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.35rem; letter-spacing: .45em; color: var(--dark);
-    font-weight: 400; text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--earth-deep);
   }
-  .nav-links { display: flex; align-items: center; gap: 40px; }
+  .nav-logo img {
+    height: 44px;
+    width: auto;
+    filter: drop-shadow(0 1px 2px rgba(74, 47, 31, 0.15));
+  }
+  .nav-logo .brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+  .nav-logo .brand-en {
+    font-family: var(--display-en);
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    color: var(--earth-deep);
+  }
+  .nav-logo .brand-zh {
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: var(--earth);
+    margin-top: 4px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+  }
   .nav-links a {
-    font-size: .78rem; letter-spacing: .22em; color: var(--text);
-    text-decoration: none; transition: color .3s;
+    font-size: 14px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    letter-spacing: 0.18em;
+    transition: color 0.3s;
+    position: relative;
   }
-  .nav-links a:hover { color: var(--clay); }
-  .nav-cta {
-    background: var(--clay); color: #fff !important;
-    padding: 11px 24px; font-size: .78rem !important;
-    letter-spacing: .18em !important; transition: background .3s !important;
+  .nav-links a:hover { color: var(--earth); }
+  .nav-links a::after {
+    content: "";
+    position: absolute;
+    bottom: -6px; left: 50%;
+    width: 0; height: 1px;
+    background: var(--earth);
+    transition: all 0.3s;
+    transform: translateX(-50%);
   }
-  .nav-cta:hover { background: var(--clay-dark) !important; }
+  .nav-links a:hover::after { width: 100%; }
 
-  /* ── HERO ── */
-  #hero {
-    position: relative; min-height: 100vh;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    background: var(--cream); overflow: hidden;
+  .nav-links a.nav-cta {
+    padding: 10px 22px;
+    background: var(--earth-deep);
+    color: var(--paper);
+    border-radius: 999px;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-decoration: none;
+    transition: all 0.3s;
   }
-  .hero-circle {
-    position: absolute; border-radius: 50%;
-    border: 1px solid var(--circle-stroke);
-    animation: floatCircle 8s ease-in-out infinite;
-  }
-  .hero-circle:nth-child(1) { width: 170px; height: 170px; top: 9%; left: 3%; animation-delay: 0s; }
-  .hero-circle:nth-child(2) { width: 90px; height: 90px; top: 60%; right: 8%; animation-delay: 2s; }
-  .hero-circle:nth-child(3) { width: 220px; height: 220px; bottom: 5%; right: 1%; animation-delay: 4s; }
-  @keyframes floatCircle {
-    0%,100% { transform: translateY(0) scale(1); opacity: .7; }
-    50% { transform: translateY(-18px) scale(1.03); opacity: 1; }
-  }
-  .hero-dot {
-    position: absolute; width: 6px; height: 6px; border-radius: 50%;
-    background: var(--clay-light); opacity: .5;
-  }
-  .hero-dot:nth-child(4) { top: 25%; left: 27%; }
-  .hero-dot:nth-child(5) { bottom: 35%; left: 50%; }
-  .hero-dot:nth-child(6) { top: 55%; right: 25%; }
-  .hero-line {
-    width: 1px; height: 60px; background: var(--clay-light);
-    margin-bottom: 28px; opacity: .6;
-    animation: growLine 1.2s ease forwards;
-  }
-  @keyframes growLine { from { transform: scaleY(0); } to { transform: scaleY(1); } }
-  .hero-sub {
-    font-family: 'Cormorant Garamond', serif; font-size: .8rem;
-    letter-spacing: .5em; color: var(--text-light); margin-bottom: 22px;
-    animation: fadeUp .8s ease .3s both;
-  }
-  .hero-title {
-    font-size: clamp(2.6rem, 5.5vw, 4.2rem);
-    font-weight: 400; line-height: 1.22; text-align: center;
-    letter-spacing: .04em; color: var(--dark);
-    animation: fadeUp .9s ease .5s both;
-  }
-  .hero-desc {
-    margin-top: 20px; font-size: .92rem;
-    letter-spacing: .12em; color: var(--text-light);
-    animation: fadeUp .8s ease .7s both;
-  }
-  .hero-btn {
-    margin-top: 42px;
-    display: inline-block; background: var(--clay); color: #fff;
-    padding: 16px 44px; font-family: 'Noto Serif TC', serif;
-    font-size: .85rem; letter-spacing: .22em;
-    text-decoration: none; border: none; cursor: pointer;
-    transition: background .35s, transform .25s;
-    animation: fadeUp .8s ease .9s both;
-  }
-  .hero-btn:hover { background: var(--clay-dark); transform: translateY(-2px); }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to   { opacity: 1; transform: translateY(0); }
+  .nav-links a.nav-cta::after { display: none; }
+  .nav-links a.nav-cta:hover {
+    background: var(--earth);
+    color: var(--paper);
+    transform: translateY(-1px);
   }
 
-  /* ── SECTIONS COMMON ── */
-  section { position: relative; overflow: hidden; }
-  .label {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: .72rem; letter-spacing: .5em;
-    color: var(--text-light); display: block; margin-bottom: 14px;
+  .mobile-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+  .mobile-toggle span {
+    display: block; width: 24px; height: 1.5px; background: var(--earth-deep);
+    margin: 5px 0; transition: 0.3s;
   }
-  h2.section-title {
-    font-size: clamp(1.7rem, 3vw, 2.5rem);
-    font-weight: 400; line-height: 1.3; color: var(--dark);
+
+  /* ============ HERO ============ */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    padding: 140px 0 100px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
   }
-  .divider {
-    width: 40px; height: 1px; background: var(--clay);
-    margin: 22px 0 28px;
+  .hero > .container { width: 100%; }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('assets/hero.jpg');
+    background-size: cover;
+    background-position: center right;
+    z-index: 1;
   }
-  p.body-text {
-    font-size: .9rem; line-height: 1.95; color: var(--text-light);
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg,
+        rgba(245, 237, 219, 0.95) 0%,
+        rgba(245, 237, 219, 0.88) 25%,
+        rgba(245, 237, 219, 0.55) 42%,
+        rgba(245, 237, 219, 0.15) 55%,
+        transparent 68%);
+    z-index: 2;
+  }
+  /* 底部柔邊過渡 */
+  .hero-overlay::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 120px;
+    background: linear-gradient(180deg, transparent, var(--paper) 90%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 3;
     max-width: 480px;
   }
-  p.body-text + p.body-text { margin-top: 16px; }
 
-  /* ── ABOUT ── */
-  #about {
-    padding: 120px 60px;
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 80px; align-items: center;
-    background: var(--warm-white);
+  .season-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 20px;
+    border: 1px solid rgba(122, 82, 57, 0.3);
+    border-radius: 999px;
+    background: rgba(245, 237, 219, 0.75);
+    backdrop-filter: blur(6px);
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    color: var(--earth-deep);
+    margin-bottom: 40px;
+    animation: fadeUp 1s ease 0.2s both;
   }
-  .about-visual {
-    position: relative; display: flex; align-items: center; justify-content: center;
+  .season-tag-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--sage);
+    box-shadow: 0 0 0 3px rgba(139, 154, 126, 0.25);
+    animation: pulse 2.5s ease-in-out infinite;
   }
-  .about-card {
-    background: var(--cream); border-radius: 4px;
-    width: 100%; max-width: 420px; aspect-ratio: 3/3.5;
-    display: flex; align-items: center; justify-content: center;
-    position: relative; overflow: hidden;
-    box-shadow: 0 4px 40px rgba(90,80,64,.07);
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 3px rgba(139, 154, 126, 0.25); }
+    50% { box-shadow: 0 0 0 6px rgba(139, 154, 126, 0.08); }
   }
-  .plant-svg { width: 65%; opacity: .9; }
-  .about-icons {
-    margin-top: 40px; display: flex; gap: 50px; flex-wrap: wrap;
-  }
-  .icon-item {
-    display: flex; flex-direction: column; align-items: center; gap: 10px;
-  }
-  .icon-circle {
-    width: 52px; height: 52px; border-radius: 50%;
-    border: 1px solid var(--clay-light);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.2rem; color: var(--clay);
-    transition: background .3s, color .3s;
-  }
-  .icon-circle:hover { background: var(--clay); color: #fff; }
-  .icon-label { font-size: .75rem; letter-spacing: .12em; color: var(--text-light); }
+  .season-tag .sep { color: var(--paper-deep); }
+  .season-tag .ch { color: var(--earth); font-weight: 500; letter-spacing: 0.2em; }
+  .season-tag .en { font-family: var(--italic-en); font-style: italic; font-size: 11px; color: var(--ink-soft); letter-spacing: 0.15em; }
 
-  /* ── SERVICES ── */
-  #services {
-    padding: 120px 60px;
-    background: var(--cream); text-align: center;
+  .hero h1 {
+    font-family: var(--serif-zh);
+    font-weight: 300;
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 1.15;
+    color: var(--earth-deep);
+    letter-spacing: 0.04em;
+    margin-bottom: 32px;
+    animation: fadeUp 1.2s ease 0.4s both;
   }
-  #services .section-header { margin-bottom: 70px; }
-  #services .divider { margin: 22px auto 28px; }
+  .hero h1 .em {
+    font-weight: 500;
+    color: var(--earth);
+    position: relative;
+    display: inline-block;
+  }
+  .hero h1 .em::after {
+    content: "";
+    position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0.6;
+  }
+  .hero h1 .comma { color: var(--gold); font-weight: 300; }
+
+  .hero-sub {
+    font-size: clamp(13px, 1vw, 15px);
+    color: var(--earth);
+    letter-spacing: 0.45em;
+    margin-bottom: 48px;
+    font-weight: 400;
+    animation: fadeUp 1.2s ease 0.6s both;
+    opacity: 0.8;
+  }
+
+  .hero-cta-group {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    animation: fadeUp 1.2s ease 0.8s both;
+  }
+  .btn-primary {
+    padding: 16px 36px;
+    background: var(--earth-deep);
+    color: var(--paper);
+    text-decoration: none;
+    border-radius: 999px;
+    font-size: 14px;
+    letter-spacing: 0.25em;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow: 0 6px 20px -8px rgba(74, 47, 31, 0.5);
+  }
+  .btn-primary:hover {
+    background: var(--earth);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px -8px rgba(74, 47, 31, 0.6);
+  }
+  .btn-primary svg { transition: transform 0.3s; }
+  .btn-primary:hover svg { transform: translateX(4px); }
+
+  .btn-ghost {
+    color: var(--earth-deep);
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 0.25em;
+    border-bottom: 1px solid var(--earth);
+    padding: 4px 0;
+    transition: all 0.3s;
+  }
+  .btn-ghost:hover { color: var(--earth); letter-spacing: 0.3em; }
+
+  /* Hero 分隔線 */
+  .hero-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--earth);
+    opacity: 0.4;
+    margin: 40px 0;
+    animation: fadeUp 1.2s ease 0.7s both;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ============ SECTION COMMON ============ */
+  section {
+    position: relative;
+    padding: 140px 0;
+    z-index: 2;
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-family: var(--italic-en);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--earth);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .section-label::before {
+    content: "";
+    width: 32px; height: 1px;
+    background: var(--earth);
+  }
+  .section-label .num {
+    font-family: var(--display-en);
+    font-style: normal;
+    font-weight: 300;
+    color: var(--gold);
+  }
+
+  .section-title {
+    font-family: var(--serif-zh);
+    font-size: clamp(36px, 4.6vw, 58px);
+    font-weight: 300;
+    color: var(--earth-deep);
+    line-height: 1.3;
+    letter-spacing: 0.06em;
+    margin-bottom: 32px;
+  }
+  .section-title strong { font-weight: 500; color: var(--earth); }
+
+  .section-lead {
+    font-size: clamp(16px, 1.3vw, 18px);
+    color: var(--ink-soft);
+    line-height: 2;
+    max-width: 640px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ============ 信念 · Philosophy ============ */
+  .philosophy {
+    background: linear-gradient(180deg, transparent 0%, var(--mist) 50%, transparent 100%);
+  }
+  .philosophy-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+  }
+  .philosophy-quote {
+    position: relative;
+    padding-left: 40px;
+    border-left: 1px solid rgba(122, 82, 57, 0.25);
+  }
+  .philosophy-quote .mark {
+    font-family: var(--display-en);
+    font-size: 100px;
+    color: var(--gold);
+    opacity: 0.4;
+    line-height: 0.5;
+    display: block;
+    margin-bottom: 20px;
+  }
+  .philosophy-quote p {
+    font-size: clamp(18px, 1.6vw, 22px);
+    color: var(--earth-deep);
+    line-height: 2.2;
+    letter-spacing: 0.06em;
+    margin-bottom: 20px;
+  }
+  .philosophy-quote em {
+    color: var(--moss-deep);
+    font-weight: 500;
+    font-style: normal;
+    background: linear-gradient(transparent 60%, rgba(139, 154, 126, 0.25) 60%);
+    padding: 0 3px;
+  }
+
+  /* 植物 vs 人體 對照 */
+  .parallel {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    background: rgba(245, 237, 219, 0.4);
+    border: 1px solid rgba(122, 82, 57, 0.12);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .parallel-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 28px 32px;
+    gap: 24px;
+    border-bottom: 1px solid rgba(122, 82, 57, 0.08);
+    transition: background 0.4s;
+  }
+  .parallel-row:last-child { border-bottom: none; }
+  .parallel-row:hover { background: rgba(245, 237, 219, 0.7); }
+  .parallel-side {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .parallel-side .tiny {
+    font-family: var(--italic-en);
+    font-style: italic;
+    font-size: 11px;
+    color: var(--earth);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+  }
+  .parallel-side .main {
+    font-size: 18px;
+    color: var(--ink);
+    letter-spacing: 0.08em;
+    font-weight: 400;
+  }
+  .parallel-side.right { text-align: right; }
+  .parallel-sep {
+    color: var(--gold);
+    font-size: 18px;
+    font-family: var(--display-en);
+    opacity: 0.6;
+  }
+
+  /* ============ 方法 · Method ============ */
+  .method {
+    padding: 140px 0;
+    position: relative;
+  }
+  .method-head {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+  .method-head .section-label { justify-content: center; }
+  .method-head .section-label::before,
+  .method-head .section-label::after {
+    content: "";
+    width: 32px; height: 1px;
+    background: var(--earth);
+  }
+
+  .method-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: rgba(122, 82, 57, 0.2);
+    border: 1px solid rgba(122, 82, 57, 0.2);
+  }
+  .method-card {
+    background: var(--paper);
+    padding: 60px 40px;
+    position: relative;
+    transition: background 0.5s;
+  }
+  .method-card:hover { background: var(--paper-warm); }
+  .method-card .icon-wrap {
+    width: 64px; height: 64px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 32px;
+    color: var(--earth);
+  }
+  .method-card .ch {
+    font-family: var(--serif-zh);
+    font-size: 36px;
+    font-weight: 400;
+    color: var(--earth-deep);
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .method-card .ch strong { font-weight: 500; color: var(--earth); font-size: 44px; }
+  .method-card .en {
+    font-family: var(--italic-en);
+    font-style: italic;
+    font-size: 15px;
+    color: var(--earth);
+    letter-spacing: 0.2em;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(122, 82, 57, 0.18);
+  }
+  .method-card .desc {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 2;
+    letter-spacing: 0.04em;
+  }
+  .method-card .num {
+    position: absolute;
+    top: 40px; right: 40px;
+    font-family: var(--display-en);
+    font-size: 14px;
+    font-style: italic;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+  }
+
+  /* ============ 當令節氣 · Seasonal ============ */
+  .seasonal {
+    background: linear-gradient(160deg, #3D4A33 0%, #2A3322 100%);
+    color: var(--paper);
+    overflow: hidden;
+    position: relative;
+    padding: 160px 0;
+  }
+  .seasonal::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 10% 20%, rgba(200, 164, 122, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(200, 164, 122, 0.06) 0%, transparent 40%);
+    pointer-events: none;
+  }
+
+  /* 雨絲 (穀雨) */
+  .rain-drop {
+    position: absolute;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, rgba(200, 164, 122, 0.35), transparent);
+    animation: rainFall 2.5s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes rainFall {
+    0% { transform: translateY(-100vh); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(100vh); opacity: 0; }
+  }
+
+  .seasonal-inner { position: relative; z-index: 2; }
+  .seasonal-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: end;
+    margin-bottom: 80px;
+  }
+  .seasonal-head .section-label {
+    color: var(--gold);
+  }
+  .seasonal-head .section-label::before { background: var(--gold); opacity: 0.6; }
+  .seasonal-head .section-title {
+    color: var(--paper);
+    margin-bottom: 0;
+  }
+  .seasonal-head .section-title strong { color: var(--gold); }
+
+  .current-season-note {
+    font-family: var(--italic-en);
+    font-style: italic;
+    color: var(--gold-soft);
+    font-size: 15px;
+    letter-spacing: 0.1em;
+    line-height: 2;
+    opacity: 0.85;
+  }
+  .current-season-note .date {
+    display: block;
+    font-family: var(--display-en);
+    font-style: normal;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    margin-bottom: 8px;
+    color: var(--gold);
+  }
+
+  .season-main {
+    display: grid;
+    grid-template-columns: 0.9fr 1.3fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .season-visual {
+    position: relative;
+    aspect-ratio: 1;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .season-seal {
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(200, 164, 122, 0.3);
+    border-radius: 50%;
+  }
+  .season-seal::before {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border: 1px dashed rgba(200, 164, 122, 0.18);
+    border-radius: 50%;
+    animation: rotate 60s linear infinite;
+  }
+  @keyframes rotate { to { transform: rotate(360deg); } }
+
+  .season-char {
+    font-family: var(--serif-zh);
+    font-weight: 300;
+    font-size: clamp(120px, 15vw, 200px);
+    line-height: 1;
+    color: var(--gold);
+    letter-spacing: -0.05em;
+    text-shadow: 0 0 40px rgba(200, 164, 122, 0.25);
+  }
+  .season-char .rain { font-weight: 400; }
+  .season-subchar {
+    position: absolute;
+    bottom: 18%;
+    font-family: var(--display-en);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--gold-soft);
+    letter-spacing: 0.25em;
+    opacity: 0.7;
+  }
+  .season-meta {
+    position: absolute;
+    top: 14%;
+    font-size: 11px;
+    color: var(--gold-soft);
+    letter-spacing: 0.4em;
+    opacity: 0.65;
+  }
+
+  .season-content { }
+  .season-content .tag {
+    display: inline-block;
+    font-family: var(--italic-en);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--gold);
+    letter-spacing: 0.25em;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(200, 164, 122, 0.3);
+  }
+  .season-content h3 {
+    font-family: var(--serif-zh);
+    font-weight: 300;
+    font-size: clamp(26px, 2.4vw, 32px);
+    line-height: 1.6;
+    color: var(--paper);
+    margin-bottom: 28px;
+    letter-spacing: 0.04em;
+  }
+  .season-content h3 strong { color: var(--gold); font-weight: 500; }
+  .season-content > p {
+    color: rgba(245, 237, 219, 0.75);
+    line-height: 2.1;
+    font-size: 15.5px;
+    letter-spacing: 0.04em;
+    margin-bottom: 40px;
+    max-width: 580px;
+  }
+
+  .season-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  .season-card {
+    padding: 28px 26px;
+    background: rgba(200, 164, 122, 0.06);
+    border: 1px solid rgba(200, 164, 122, 0.18);
+    border-radius: 4px;
+    backdrop-filter: blur(4px);
+  }
+  .season-card h4 {
+    font-family: var(--italic-en);
+    font-style: italic;
+    font-size: 12px;
+    color: var(--gold);
+    letter-spacing: 0.3em;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+  .season-card .big {
+    font-family: var(--serif-zh);
+    font-size: 18px;
+    color: var(--paper);
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    font-weight: 400;
+  }
+  .season-card p {
+    font-size: 13.5px;
+    color: rgba(245, 237, 219, 0.7);
+    line-height: 1.9;
+    letter-spacing: 0.03em;
+  }
+
+  .season-next {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(200, 164, 122, 0.2);
+    font-size: 13px;
+    color: var(--gold-soft);
+    letter-spacing: 0.2em;
+  }
+  .season-next .arrow {
+    flex-shrink: 0;
+    color: var(--gold);
+    opacity: 0.7;
+  }
+  .season-next .text { color: rgba(245, 237, 219, 0.7); }
+  .season-next .text strong { color: var(--paper); font-weight: 500; }
+
+  /* ============ 撥經差異 · 撥的不是痛，是通 ============ */
+  .kicker {
+    padding: 180px 0;
+    text-align: center;
+    position: relative;
+  }
+  .kicker-line {
+    font-family: var(--serif-zh);
+    font-weight: 200;
+    font-size: clamp(40px, 5.5vw, 72px);
+    letter-spacing: 0.12em;
+    line-height: 1.4;
+    color: var(--earth-deep);
+    margin-bottom: 20px;
+  }
+  .kicker-line .flip {
+    color: var(--clay);
+    font-weight: 300;
+    position: relative;
+    display: inline-block;
+  }
+  .kicker-line .flip::before {
+    content: "";
+    position: absolute;
+    top: 50%; left: -8px; right: -8px;
+    height: 1px;
+    background: var(--clay);
+    opacity: 0.5;
+  }
+  .kicker-line .focus {
+    color: var(--earth);
+    font-weight: 500;
+    position: relative;
+  }
+  .kicker-en {
+    font-family: var(--italic-en);
+    font-style: italic;
+    color: var(--earth);
+    font-size: 18px;
+    letter-spacing: 0.15em;
+    opacity: 0.7;
+    margin-bottom: 80px;
+  }
+
+  /* 對照 */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 40px;
+    max-width: 960px;
+    margin: 0 auto;
+    align-items: stretch;
+  }
+  .compare-col {
+    background: var(--paper-warm);
+    border: 1px solid rgba(122, 82, 57, 0.15);
+    padding: 44px 36px;
+    text-align: left;
+    position: relative;
+  }
+  .compare-col.other {
+    background: rgba(234, 226, 209, 0.5);
+    opacity: 0.8;
+  }
+  .compare-col.ours {
+    background: var(--paper);
+    border-color: var(--earth);
+    box-shadow: 0 20px 50px -20px rgba(74, 47, 31, 0.2);
+  }
+  .compare-label {
+    font-family: var(--italic-en);
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    margin-bottom: 10px;
+  }
+  .compare-col.other .compare-label { color: var(--ink-soft); opacity: 0.6; }
+  .compare-col.ours .compare-label { color: var(--earth); }
+
+  .compare-title {
+    font-family: var(--serif-zh);
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 28px;
+    letter-spacing: 0.08em;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(122, 82, 57, 0.15);
+  }
+  .compare-col.other .compare-title { color: var(--ink-soft); text-decoration: line-through; text-decoration-color: rgba(184, 101, 74, 0.4); text-decoration-thickness: 1px; }
+  .compare-col.ours .compare-title { color: var(--earth-deep); }
+
+  .compare-list { list-style: none; }
+  .compare-list li {
+    padding: 12px 0;
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    letter-spacing: 0.03em;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .compare-list li::before {
+    content: "—";
+    color: var(--earth);
+    flex-shrink: 0;
+    opacity: 0.4;
+  }
+  .compare-col.ours .compare-list li::before { color: var(--earth); opacity: 0.8; }
+
+  .compare-arrow {
+    display: flex;
+    align-items: center;
+    color: var(--gold);
+    font-family: var(--display-en);
+    font-style: italic;
+    font-size: 15px;
+    letter-spacing: 0.2em;
+  }
+
+  /* ============ 服務套餐 · Services ============ */
+  .services {
+    padding: 160px 0;
+    background: linear-gradient(180deg, transparent 0%, var(--paper-warm) 100%);
+  }
+
+  .service-head {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 80px;
+    align-items: end;
+    margin-bottom: 80px;
+  }
+
   .services-grid {
-    display: grid; grid-template-columns: repeat(2, 1fr);
-    gap: 32px; max-width: 1100px; margin: 0 auto; text-align: left;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
   }
   .service-card {
-    background: var(--warm-white); border-radius: 4px;
-    overflow: hidden; transition: transform .35s, box-shadow .35s;
-    box-shadow: 0 2px 20px rgba(90,80,64,.05);
+    background: var(--paper);
+    border: 1px solid rgba(122, 82, 57, 0.18);
+    padding: 48px 44px;
+    position: relative;
+    transition: all 0.4s ease;
+    overflow: hidden;
   }
-  .service-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(90,80,64,.12); }
-  .service-img {
-    width: 100%; height: 240px;
-    background: var(--cream); display: flex;
-    align-items: center; justify-content: center;
-    overflow: hidden; position: relative;
+  .service-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--earth), var(--gold), var(--sage));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s ease;
   }
-  .service-body { padding: 32px; }
-  .service-tag {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: .72rem; letter-spacing: .42em;
-    color: var(--text-light); display: block; margin-bottom: 10px;
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 30px 60px -30px rgba(74, 47, 31, 0.25);
   }
-  .service-name {
-    font-size: 1.25rem; font-weight: 400;
-    color: var(--dark); margin-bottom: 16px; letter-spacing: .04em;
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-head-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
   }
-  .service-desc {
-    font-size: .84rem; line-height: 1.9; color: var(--text-light); margin-bottom: 18px;
+  .service-letter {
+    font-family: var(--display-en);
+    font-style: italic;
+    font-size: 48px;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
   }
-  .service-list {
-    list-style: none; display: flex; flex-direction: column; gap: 6px;
+  .service-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: flex-end;
   }
-  .service-list li {
-    font-size: .8rem; color: var(--text-light);
-    padding-left: 16px; position: relative;
+  .tag-chip {
+    font-size: 10px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.18em;
+    font-weight: 400;
   }
-  .service-list li::before {
-    content: '•'; position: absolute; left: 0; color: var(--clay);
+  .tag-sage { background: rgba(139, 154, 126, 0.15); color: var(--moss-deep); border: 1px solid rgba(139, 154, 126, 0.3); }
+  .tag-earth { background: rgba(122, 82, 57, 0.1); color: var(--earth); border: 1px solid rgba(122, 82, 57, 0.25); }
+  .tag-gold { background: rgba(200, 164, 122, 0.15); color: #8B6F47; border: 1px solid rgba(200, 164, 122, 0.35); }
+
+  .service-title {
+    font-family: var(--serif-zh);
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--earth-deep);
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .service-sub {
+    font-family: var(--italic-en);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--earth);
+    letter-spacing: 0.15em;
+    margin-bottom: 24px;
+  }
+  .service-price {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed rgba(122, 82, 57, 0.25);
+  }
+  .service-price .original {
+    font-size: 14px;
+    color: var(--ink-soft);
+    text-decoration: line-through;
+    opacity: 0.6;
+  }
+  .service-price .member {
+    font-family: var(--display-en);
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--earth);
+    line-height: 1;
+  }
+  .service-price .member .unit { font-size: 14px; margin-right: 4px; }
+  .service-price .duration {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: 0.15em;
+    padding: 4px 10px;
+    background: var(--paper-deep);
+    border-radius: 4px;
   }
 
-  /* ── HERITAGE ── */
-  #heritage {
-    padding: 110px 60px;
-    background: var(--dark-bg); color: #e8dfd5;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  .service-items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 16px;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    letter-spacing: 0.05em;
+    line-height: 1.9;
   }
-  #heritage .label { color: rgba(232,223,213,.55); }
-  #heritage h2.section-title { color: #e8dfd5; }
-  #heritage .divider { background: rgba(232,223,213,.4); }
-  #heritage p.body-text { color: rgba(232,223,213,.75); max-width: 520px; }
-  .heritage-stats {
-    display: flex; gap: 28px; margin-top: 40px;
+  .service-items div::before {
+    content: "·";
+    color: var(--gold);
+    margin-right: 6px;
   }
-  .stat-box {
-    border: 1px solid rgba(232,223,213,.25);
-    padding: 24px 30px; flex: 1; text-align: center;
-  }
-  .stat-num {
-    font-family: 'Cormorant Garamond', serif; font-size: 2.2rem;
-    font-weight: 300; color: #e8dfd5; letter-spacing: .04em;
-  }
-  .stat-label { font-size: .75rem; color: rgba(232,223,213,.55); margin-top: 6px; letter-spacing: .12em; }
-  .heritage-visual {
-    position: relative; display: flex; align-items: center; justify-content: center;
-  }
-  .heritage-card {
-    background: rgba(90,80,64,.45); border-radius: 4px;
-    width: 100%; max-width: 400px; aspect-ratio: 1;
-    display: flex; align-items: center; justify-content: center;
-    position: relative; overflow: hidden;
-    border: 1px solid rgba(232,223,213,.1);
-  }
-  .heritage-rings {
-    position: absolute; width: 220px; height: 220px;
-    border-radius: 50%; border: 1px solid rgba(232,223,213,.15);
-    display: flex; align-items: center; justify-content: center;
-  }
-  .heritage-rings::before {
-    content: ''; position: absolute; inset: 20px;
-    border-radius: 50%; border: 1px solid rgba(232,223,213,.1);
-  }
-  .quote-box {
-    position: absolute; bottom: -20px; right: -24px;
-    background: var(--warm-white); padding: 22px 26px;
-    max-width: 280px; box-shadow: 0 6px 30px rgba(0,0,0,.15);
-    border-radius: 2px;
-  }
-  .quote-text {
-    font-size: .83rem; line-height: 1.8; color: var(--text);
-    font-style: italic; margin-bottom: 10px;
-  }
-  .quote-author { font-size: .72rem; letter-spacing: .16em; color: var(--text-light); }
 
-  /* ── CONTACT ── */
-  #contact {
-    padding: 120px 60px;
-    background: var(--warm-white); text-align: center;
+  /* ============ 單項價目 ============ */
+  .pricelist {
+    padding: 140px 0;
   }
-  #contact .divider { margin: 22px auto 28px; }
-  .contact-sub {
-    font-size: .88rem; line-height: 1.9; color: var(--text-light);
-    margin-bottom: 52px;
+  .pricelist-head {
+    margin-bottom: 60px;
+    max-width: 680px;
   }
-  .contact-form {
-    max-width: 560px; margin: 0 auto;
-    display: flex; flex-direction: column; gap: 16px;
+  .price-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--paper);
   }
-  .form-input, .form-select, .form-textarea {
-    width: 100%; padding: 16px 20px;
-    background: var(--cream); border: 1px solid rgba(154,130,112,.22);
-    font-family: 'Noto Serif TC', serif; font-size: .88rem;
-    color: var(--text); outline: none;
-    transition: border-color .3s;
-    border-radius: 2px; letter-spacing: .06em;
+  .price-table thead {
+    background: var(--earth-deep);
+    color: var(--paper);
   }
-  .form-input::placeholder, .form-textarea::placeholder { color: var(--text-light); }
-  .form-input:focus, .form-select:focus, .form-textarea:focus {
-    border-color: var(--clay);
+  .price-table th {
+    padding: 20px 24px;
+    text-align: left;
+    font-weight: 400;
+    font-size: 13px;
+    letter-spacing: 0.25em;
   }
-  .form-select { appearance: none; cursor: pointer; }
-  .form-select option[value=""] { color: var(--text-light); }
-  .form-textarea { resize: none; height: 130px; line-height: 1.7; }
-  .submit-btn {
-    background: var(--clay); color: #fff; border: none; cursor: pointer;
-    padding: 18px; font-family: 'Noto Serif TC', serif;
-    font-size: .88rem; letter-spacing: .28em;
-    transition: background .3s, transform .2s;
-    border-radius: 2px;
+  .price-table th:not(:first-child) { text-align: center; }
+  .price-table tbody tr {
+    border-bottom: 1px solid rgba(122, 82, 57, 0.12);
+    transition: background 0.3s;
   }
-  .submit-btn:hover { background: var(--clay-dark); transform: translateY(-2px); }
+  .price-table tbody tr:hover { background: var(--paper-warm); }
+  .price-table td {
+    padding: 22px 24px;
+    font-size: 15px;
+    color: var(--ink);
+    letter-spacing: 0.05em;
+  }
+  .price-table td:not(:first-child) { text-align: center; }
+  .price-table td.original {
+    color: var(--ink-soft);
+    opacity: 0.65;
+    text-decoration: line-through;
+    font-size: 14px;
+  }
+  .price-table td.member {
+    font-family: var(--display-en);
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--earth);
+  }
+  .price-table td.member .unit { font-size: 12px; color: var(--ink-soft); margin-right: 4px; }
+  .price-table td.duration {
+    font-family: var(--display-en);
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+  .price-table .badge-new {
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 8px;
+    background: var(--clay);
+    color: var(--paper);
+    border-radius: 999px;
+    letter-spacing: 0.15em;
+    margin-left: 10px;
+    vertical-align: middle;
+  }
 
-  /* ── FOOTER ── */
+  /* ============ 門市 · Visit ============ */
+  .visit {
+    padding: 140px 0 100px;
+    background: linear-gradient(180deg, var(--paper-warm) 0%, var(--paper) 60%);
+  }
+  .visit-wrap {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .visit-info { }
+  .visit-details {
+    margin-top: 48px;
+    display: grid;
+    gap: 28px;
+  }
+  .visit-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(122, 82, 57, 0.15);
+  }
+  .visit-row:last-child { border-bottom: none; }
+  .visit-row .k {
+    font-family: var(--italic-en);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--earth);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding-top: 4px;
+  }
+  .visit-row .v {
+    font-size: 17px;
+    color: var(--ink);
+    letter-spacing: 0.05em;
+    line-height: 1.7;
+  }
+  .visit-row .v .small {
+    display: block;
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 4px;
+    letter-spacing: 0.1em;
+  }
+  .visit-row .v strong { color: var(--earth-deep); font-weight: 500; }
+
+  /* LINE 預約卡 */
+  .line-card {
+    background: var(--earth-deep);
+    color: var(--paper);
+    border-radius: 8px;
+    padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .line-card::before {
+    content: "";
+    position: absolute;
+    top: -50%; right: -50%;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(200, 164, 122, 0.2), transparent 70%);
+    border-radius: 50%;
+  }
+  .line-card > * { position: relative; z-index: 2; }
+  .line-card .line-icon {
+    width: 48px; height: 48px;
+    background: #06C755;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+  .line-card h4 {
+    font-family: var(--serif-zh);
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    margin-bottom: 12px;
+  }
+  .line-card p {
+    font-size: 14px;
+    opacity: 0.7;
+    margin-bottom: 28px;
+    letter-spacing: 0.08em;
+    line-height: 1.8;
+  }
+  .line-card .line-id {
+    font-family: var(--display-en);
+    font-size: 26px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    margin-bottom: 28px;
+    display: block;
+  }
+  .line-card .line-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    background: #06C755;
+    color: white;
+    text-decoration: none;
+    border-radius: 999px;
+    font-size: 14px;
+    letter-spacing: 0.2em;
+    transition: all 0.3s;
+  }
+  .line-card .line-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px -10px rgba(6, 199, 85, 0.5);
+  }
+
+  /* ============ Footer ============ */
   footer {
-    background: var(--dark-bg); color: rgba(232,223,213,.55);
-    text-align: center; padding: 30px 60px;
-    font-size: .76rem; letter-spacing: .16em;
+    background: var(--earth-deep);
+    color: rgba(245, 237, 219, 0.8);
+    padding: 80px 0 40px;
   }
-  footer span { color: rgba(232,223,213,.35); }
+  .footer-inner {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 60px;
+  }
+  .footer-brand img {
+    height: 70px;
+    margin-bottom: 24px;
+    filter: drop-shadow(0 0 12px rgba(200, 164, 122, 0.25));
+  }
+  .footer-brand .motto {
+    font-family: var(--serif-zh);
+    font-size: 18px;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    margin-bottom: 8px;
+    font-weight: 400;
+  }
+  .footer-brand .submotto {
+    font-size: 13px;
+    letter-spacing: 0.25em;
+    color: rgba(245, 237, 219, 0.55);
+  }
+  .footer-col h5 {
+    font-family: var(--italic-en);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--gold);
+    letter-spacing: 0.25em;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 10px; }
+  .footer-col a {
+    color: rgba(245, 237, 219, 0.7);
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    transition: color 0.3s;
+  }
+  .footer-col a:hover { color: var(--gold); }
+  .footer-bottom {
+    padding-top: 30px;
+    border-top: 1px solid rgba(245, 237, 219, 0.12);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: rgba(245, 237, 219, 0.4);
+    letter-spacing: 0.15em;
+  }
 
-  /* ── SCROLL REVEAL ── */
-  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .8s ease, transform .8s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
+  /* Floating LINE */
+  .floating-line {
+    position: fixed;
+    bottom: 32px; right: 32px;
+    width: 60px; height: 60px;
+    background: #06C755;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 10px 30px -5px rgba(6, 199, 85, 0.4);
+    z-index: 50;
+    transition: transform 0.3s;
+  }
+  .floating-line::before {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    border: 2px solid #06C755;
+    border-radius: 50%;
+    opacity: 0;
+    animation: ripple 2s ease-out infinite;
+  }
+  @keyframes ripple {
+    0% { opacity: 0.6; transform: scale(1); }
+    100% { opacity: 0; transform: scale(1.4); }
+  }
+  .floating-line:hover { transform: scale(1.08); }
 
-  /* ── RESPONSIVE ── */
-  @media (max-width: 900px) {
-    nav { padding: 18px 24px; }
-    .nav-links a:not(.nav-cta) { display: none; }
-    #about, #heritage { grid-template-columns: 1fr; padding: 80px 28px; }
-    #services { padding: 80px 28px; }
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 960px) {
+    .container { padding: 0 24px; }
+    .nav-inner { padding: 14px 24px; }
+    .nav-links { display: none; }
+    .mobile-toggle { display: block; }
+
+    .hero { padding: 120px 0 80px; min-height: 90vh; }
+    .hero-content { max-width: 100%; }
+    .hero-bg { background-position: center 30%; }
+    .hero-overlay {
+      background: linear-gradient(180deg,
+        rgba(245, 237, 219, 0.98) 0%,
+        rgba(245, 237, 219, 0.95) 40%,
+        rgba(245, 237, 219, 0.78) 65%,
+        rgba(245, 237, 219, 0.35) 90%,
+        rgba(245, 237, 219, 0.15) 100%);
+    }
+    .hero-overlay::after {
+      height: 80px;
+    }
+
+    section { padding: 90px 0; }
+    .method { padding: 90px 0; }
+    .seasonal { padding: 100px 0; }
+    .kicker { padding: 100px 0; }
+    .services { padding: 100px 0; }
+    .pricelist { padding: 90px 0; }
+    .visit { padding: 90px 0 60px; }
+
+    .philosophy-wrap { grid-template-columns: 1fr; gap: 60px; }
+    .method-grid { grid-template-columns: 1fr; }
+    .method-card { padding: 44px 32px; }
+    .seasonal-head { grid-template-columns: 1fr; gap: 30px; }
+    .season-main { grid-template-columns: 1fr; gap: 50px; }
+    .season-cards { grid-template-columns: 1fr; }
+    .compare { grid-template-columns: 1fr; gap: 20px; }
+    .compare-arrow { transform: rotate(90deg); padding: 10px 0; }
+    .service-head { grid-template-columns: 1fr; gap: 40px; }
     .services-grid { grid-template-columns: 1fr; }
-    #contact { padding: 80px 28px; }
+    .service-card { padding: 40px 32px; }
+    .visit-wrap { grid-template-columns: 1fr; gap: 50px; }
+    .footer-inner { grid-template-columns: 1fr; gap: 40px; }
+    .footer-bottom { flex-direction: column; gap: 14px; text-align: center; }
+
+    .price-table th, .price-table td { padding: 14px 12px; font-size: 13px; }
+    .price-table td.member { font-size: 18px; }
+
+    .parallel-row { padding: 20px 18px; gap: 12px; }
+    .parallel-side .main { font-size: 15px; }
+    .parallel-side .tiny { font-size: 10px; }
+  }
+
+  @media (max-width: 520px) {
+    .hero h1 { font-size: 42px; }
+    .hero-sub { font-size: 14px; gap: 10px; letter-spacing: 0.2em; flex-wrap: wrap; }
+    .hero-cta-group { flex-direction: column; align-items: stretch; gap: 16px; }
+    .btn-primary { justify-content: center; }
+    .btn-ghost { text-align: center; }
+    .section-title { font-size: 32px; }
+    .kicker-line { font-size: 32px; letter-spacing: 0.08em; }
+    .season-char { font-size: 100px; }
+    .philosophy-quote { padding-left: 20px; }
+    .season-content h3 { font-size: 22px; }
+    .service-letter { font-size: 36px; }
+    .service-items { grid-template-columns: 1fr; }
+    .visit-row { grid-template-columns: 1fr; gap: 8px; }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
+<!-- ============ NAV ============ -->
 <nav>
-  <div class="nav-logo">L Y S</div>
-  <div class="nav-links">
-    <a href="#about">品牌</a>
-    <a href="#services">服務</a>
-    <a href="#heritage">傳承</a>
-    <a href="#contact" class="nav-cta">預約諮詢</a>
+  <div class="nav-inner">
+    <a href="#top" class="nav-logo">
+      <img src="assets/logo-brown.png" alt="LYS 美妍 SPA 館">
+      <span class="brand-text">
+        <span class="brand-en">LYS</span>
+        <span class="brand-zh">美妍 SPA 館</span>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="#philosophy">信念</a>
+      <a href="#method">方法</a>
+      <a href="#seasonal">當令節氣</a>
+      <a href="#difference">撥經差異</a>
+      <a href="#services">療程</a>
+      <a href="#visit">門市</a>
+      <a href="https://line.me/R/ti/p/@792hfhxt" class="nav-cta">LINE 預約</a>
+    </div>
+    <button class="mobile-toggle" aria-label="選單">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-circle"></div>
-  <div class="hero-circle"></div>
-  <div class="hero-circle"></div>
-  <div class="hero-dot"></div>
-  <div class="hero-dot"></div>
-  <div class="hero-dot"></div>
-  <div class="hero-line"></div>
-  <p class="hero-sub">L Y S</p>
-  <h1 class="hero-title">遇見純粹．步步扎實</h1>
-  <p class="hero-desc">讓每一次觸及，都如艾草般溫潤人心</p>
-  <a href="#contact" class="hero-btn">溫暖客服無縫預約</a>
-</section>
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="about-visual reveal">
-    <div class="about-card">
-      <!-- Plant SVG illustration -->
-      <svg class="plant-svg" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="100" cy="105" r="82" fill="rgba(196,180,164,0.25)" />
-        <circle cx="100" cy="105" r="82" stroke="rgba(154,130,112,0.2)" fill="none" />
-        <!-- leaves -->
-        <ellipse cx="100" cy="72" rx="28" ry="36" fill="#9a8270" opacity=".8" transform="rotate(-10 100 72)"/>
-        <ellipse cx="80" cy="82" rx="22" ry="32" fill="#9a8270" opacity=".65" transform="rotate(-35 80 82)"/>
-        <ellipse cx="120" cy="80" rx="22" ry="32" fill="#9a8270" opacity=".6" transform="rotate(25 120 80)"/>
-        <!-- stem -->
-        <path d="M100 108 C97 130 92 148 88 168" stroke="#7d6856" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-        <path d="M100 108 C102 130 106 148 110 165" stroke="#7d6856" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <!-- dots on circle -->
-        <circle cx="100" cy="23" r="2.5" fill="rgba(154,130,112,0.4)"/>
-        <circle cx="182" cy="105" r="2.5" fill="rgba(154,130,112,0.4)"/>
-      </svg>
-    </div>
-  </div>
-  <div class="about-text reveal">
-    <span class="label">ABOUT LYS</span>
-    <h2 class="section-title">大師底蘊<br>無可取代的品牌靈魂</h2>
-    <div class="divider"></div>
-    <p class="body-text">LYS，源自北歐古語「光」的意涵。我們相信，真正的美麗，始於身心的和諧平衡。</p>
-    <p class="body-text" style="margin-top:16px">品牌核心承載「五行漢方、深層經絡」的古老智慧，融合佛學禪意的溫度與覺察。每一帖方、每一道手法，皆是歲月淬煉的珍貴傳承。</p>
-    <p class="body-text" style="margin-top:16px">我們堅持親採手作，從艾草的採挖到精油的調配，不妥協的細節，只為讓每一次觸及，都能喚醒您內在本有的光芒。</p>
-    <div class="about-icons">
-      <div class="icon-item">
-        <div class="icon-circle">☯</div>
-        <span class="icon-label">五行平衡</span>
+  <div class="container">
+    <div class="hero-content">
+      <div class="season-tag">
+        <span class="season-tag-dot"></span>
+        <span class="ch">當令 · 穀雨</span>
+        <span class="sep">·</span>
+        <span class="en">Grain Rain Season</span>
       </div>
-      <div class="icon-item">
-        <div class="icon-circle">🌿</div>
-        <span class="icon-label">親採手作</span>
-      </div>
-      <div class="icon-item">
-        <div class="icon-circle">○</div>
-        <span class="icon-label">禪意覺察</span>
+
+      <h1>身若草木<span class="comma">，</span><br><span class="em">養在根本</span>。</h1>
+
+      <div class="hero-divider"></div>
+
+      <p class="hero-sub">順時而養 &nbsp;·&nbsp; 因地而食 &nbsp;·&nbsp; 循經而通</p>
+
+      <div class="hero-cta-group">
+        <a href="#services" class="btn-primary">
+          療程預約
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7H13M13 7L7 1M13 7L7 13" stroke="currentColor" stroke-width="1.5"/></svg>
+        </a>
+        <a href="#philosophy" class="btn-ghost">了解我們的信念</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
-<section id="services">
-  <div class="section-header reveal">
-    <span class="label">SERVICES</span>
-    <h2 class="section-title">告別容貌焦慮<br>重塑內調外理的高階質感</h2>
-    <div class="divider"></div>
-  </div>
-  <div class="services-grid">
-    <div class="service-card reveal">
-      <div class="service-img">
-        <!-- Product bottles SVG -->
-        <svg viewBox="0 0 280 200" style="width:78%;height:78%" xmlns="http://www.w3.org/2000/svg">
-          <rect x="60" y="60" width="50" height="110" rx="4" fill="#c4a882" opacity=".9"/>
-          <rect x="68" y="48" width="34" height="14" rx="3" fill="#b09070"/>
-          <rect x="74" y="40" width="22" height="10" rx="2" fill="#9a8270"/>
-          <rect x="130" y="80" width="40" height="90" rx="3" fill="#d4bc9e" opacity=".9"/>
-          <rect x="136" y="70" width="28" height="12" rx="2" fill="#c4a882"/>
-          <rect x="182" y="90" width="35" height="80" rx="3" fill="#b09070" opacity=".85"/>
-          <rect x="187" y="82" width="25" height="10" rx="2" fill="#9a8270"/>
-          <!-- decorative circles -->
-          <circle cx="45" cy="130" r="28" fill="rgba(154,130,112,0.18)"/>
-          <circle cx="235" cy="100" r="22" fill="rgba(154,130,112,0.14)"/>
-          <!-- small m shape -->
-          <path d="M190 148 C192 143 195 148 198 143 C201 148 204 143 206 148" stroke="#c4a882" stroke-width="1.5" fill="none"/>
-        </svg>
+<!-- ============ 信念 · Philosophy ============ -->
+<section class="philosophy reveal" id="philosophy">
+  <div class="container">
+    <div class="philosophy-wrap">
+      <div>
+        <div class="section-label"><span class="num">01</span> Our Philosophy · 信念</div>
+        <h2 class="section-title">若把人<br>看作<strong>一株植物</strong>。</h2>
+        <div class="section-lead">
+          <p>最深的病，往往不在葉，在土。從脾胃、經絡到皮毛髮膚，是一條由內而外的路徑——我們為身體所做的，是讓這條路徑重新通暢。</p>
+        </div>
       </div>
-      <div class="service-body">
-        <span class="service-tag">SERVICE A</span>
-        <h3 class="service-name">深層五行身心舒緩</h3>
-        <p class="service-desc">以五行相生的古老智慧，結合深層經絡手法。從肩頸到足底，層層疏通淤滯。讓身體在溫熱的艾草香氣中，找回流動的節奏，釋放緊積的疲憊與壓力。</p>
-        <ul class="service-list">
-          <li>深層經絡疏通按摩</li>
-          <li>五行精油能量調理</li>
-          <li>艾草溫灸舒緩療程</li>
+
+      <div class="philosophy-quote">
+        <span class="mark">"</span>
+        <p><em>植物的病</em>，不在葉，在土；</p>
+        <p><em>身體的病</em>，不在皮，在根。</p>
+      </div>
+    </div>
+
+    <!-- 對照表 -->
+    <div class="parallel" style="margin-top: 100px; max-width: 900px; margin-left: auto; margin-right: auto;">
+      <div class="parallel-row">
+        <div class="parallel-side">
+          <span class="tiny">植物 · Plant</span>
+          <span class="main">土壤</span>
+        </div>
+        <span class="parallel-sep">⟷</span>
+        <div class="parallel-side right">
+          <span class="tiny">人體 · Body</span>
+          <span class="main">脾胃</span>
+        </div>
+      </div>
+      <div class="parallel-row">
+        <div class="parallel-side">
+          <span class="tiny">植物 · Plant</span>
+          <span class="main">莖幹</span>
+        </div>
+        <span class="parallel-sep">⟷</span>
+        <div class="parallel-side right">
+          <span class="tiny">人體 · Body</span>
+          <span class="main">經絡</span>
+        </div>
+      </div>
+      <div class="parallel-row">
+        <div class="parallel-side">
+          <span class="tiny">植物 · Plant</span>
+          <span class="main">枝葉末梢</span>
+        </div>
+        <span class="parallel-sep">⟷</span>
+        <div class="parallel-side right">
+          <span class="tiny">人體 · Body</span>
+          <span class="main">皮毛髮膚</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 方法 · Method ============ -->
+<section class="method reveal" id="method">
+  <div class="container">
+    <div class="method-head">
+      <div class="section-label" style="justify-content: center;"><span class="num">02</span> Our Method · 方法</div>
+      <h2 class="section-title">順時．因地．循經。</h2>
+    </div>
+
+    <div class="method-grid">
+      <div class="method-card">
+        <div class="icon-wrap">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2">
+            <circle cx="24" cy="24" r="16"/>
+            <path d="M24 8 L24 40 M8 24 L40 24 M12 12 L36 36 M36 12 L12 36" opacity="0.4"/>
+            <circle cx="24" cy="24" r="5" fill="currentColor" opacity="0.3"/>
+          </svg>
+        </div>
+        <div class="num">i.</div>
+        <div class="ch"><strong>順時</strong>而養</div>
+        <div class="en">With The Seasons</div>
+        <p class="desc">春生、夏長、秋收、冬藏。二十四節氣各有其氣候特性，身體也隨之變化。順應天時調理，事半功倍。</p>
+      </div>
+
+      <div class="method-card">
+        <div class="icon-wrap">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M24 6 C 14 14, 14 28, 24 42 C 34 28, 34 14, 24 6 Z"/>
+            <path d="M24 6 L24 42" opacity="0.4"/>
+            <path d="M18 18 Q24 22 30 18" opacity="0.6"/>
+            <path d="M16 28 Q24 32 32 28" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="num">ii.</div>
+        <div class="ch"><strong>因地</strong>而食</div>
+        <div class="en">By The Land</div>
+        <p class="desc">當令茶飲、在地食材、溫熱寒涼的搭配，讓食物成為第一道藥。吃對了，脾胃這片土壤便能安養。</p>
+      </div>
+
+      <div class="method-card">
+        <div class="icon-wrap">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M12 8 Q20 20 12 32 Q20 44 28 36" />
+            <path d="M36 8 Q28 20 36 32 Q28 44 20 36" opacity="0.5"/>
+            <circle cx="24" cy="12" r="2" fill="currentColor"/>
+            <circle cx="24" cy="24" r="2" fill="currentColor"/>
+            <circle cx="24" cy="36" r="2" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="num">iii.</div>
+        <div class="ch"><strong>循經</strong>而通</div>
+        <div class="en">Along The Meridians</div>
+        <p class="desc">很多人以為肩頸痠痛是肌肉的事，其實許多不適都源於中樞與任督二脈。循經撥開阻滯，氣血自然通暢。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 當令節氣 · Seasonal ============ -->
+<section class="seasonal reveal" id="seasonal">
+  <!-- 雨絲 -->
+  <div class="rain-drop" style="left: 8%; height: 60px; animation-delay: 0s;"></div>
+  <div class="rain-drop" style="left: 15%; height: 80px; animation-delay: 0.8s;"></div>
+  <div class="rain-drop" style="left: 22%; height: 50px; animation-delay: 1.2s;"></div>
+  <div class="rain-drop" style="left: 32%; height: 70px; animation-delay: 0.4s;"></div>
+  <div class="rain-drop" style="left: 48%; height: 60px; animation-delay: 1.6s;"></div>
+  <div class="rain-drop" style="left: 58%; height: 90px; animation-delay: 0.2s;"></div>
+  <div class="rain-drop" style="left: 68%; height: 55px; animation-delay: 1.4s;"></div>
+  <div class="rain-drop" style="left: 78%; height: 75px; animation-delay: 0.6s;"></div>
+  <div class="rain-drop" style="left: 88%; height: 65px; animation-delay: 1s;"></div>
+  <div class="rain-drop" style="left: 95%; height: 50px; animation-delay: 1.8s;"></div>
+
+  <div class="container seasonal-inner">
+    <div class="seasonal-head">
+      <div>
+        <div class="section-label"><span class="num">03</span> Seasonal Wellness · 當令節氣</div>
+        <h2 class="section-title">此刻的身體，<br>正在聽<strong>穀雨</strong>的語言。</h2>
+      </div>
+      <div class="current-season-note">
+        <span class="date">4.20 — 5.4 · 2026</span>
+        雨生百穀，春之最末。<br>
+        濕氣漸重，脾胃初疲，<br>
+        是養土護根的時節。
+      </div>
+    </div>
+
+    <div class="season-main">
+      <div class="season-visual">
+        <div class="season-seal"></div>
+        <span class="season-meta">Solar Term No. 06</span>
+        <div class="season-char">穀<span class="rain">雨</span></div>
+        <span class="season-subchar">GRAIN RAIN</span>
+      </div>
+
+      <div class="season-content">
+        <span class="tag">身體訊號 · Body Signals</span>
+        <h3>皮膚泛癢、容易水腫、<br>食慾不振、身重倦怠——<br>那是脾胃在說：<strong>土太濕了</strong>。</h3>
+        <p>穀雨前後，雨水漸多、空氣濕黏，濕氣最易透過脾胃影響全身。此時若貪涼冷飲、飲食肥甘，濕氣會堆積成病，從皮膚、四肢、消化道一路顯現。養生重點在「健脾祛濕」，讓土壤重回鬆軟乾爽。</p>
+
+        <div class="season-cards">
+          <div class="season-card">
+            <h4>推薦茶飲 · Tea</h4>
+            <div class="big">薏仁茯苓茶</div>
+            <p>薏仁、茯苓、赤小豆慢煨。利水滲濕、健脾不寒，是穀雨時節的家常守護。</p>
+          </div>
+          <div class="season-card">
+            <h4>撥經重點 · Focus</h4>
+            <div class="big">脾經 · 胃經</div>
+            <p>大腿內側脾經、小腿前側足三里一帶。循經撥開濕阻，助運化、消水腫。</p>
+          </div>
+          <div class="season-card">
+            <h4>居家自護 · Self-care</h4>
+            <div class="big">敲打脾經</div>
+            <p>每日沿大腿內側由上往下輕敲 3 分鐘。微熱微痠，便是氣血走動的訊號。</p>
+          </div>
+          <div class="season-card">
+            <h4>飲食避忌 · Avoid</h4>
+            <div class="big">生冷 · 甜膩</div>
+            <p>冰飲、生菜、重甜甜點會加重脾濕。改以溫粥、蒸煮、薑片佐食。</p>
+          </div>
+        </div>
+
+        <div class="season-next">
+          <svg class="arrow" width="32" height="10" viewBox="0 0 32 10" fill="none">
+            <path d="M0 5H30M30 5L26 1M30 5L26 9" stroke="currentColor" stroke-width="1"/>
+          </svg>
+          <span class="text">下一節氣 · <strong>立夏</strong>（5.5 起）—— 陽氣漸盛，心火將起，當清心養氣。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 撥經差異 · Kicker ============ -->
+<section class="kicker reveal" id="difference">
+  <div class="container">
+    <p class="section-label" style="justify-content: center; margin-bottom: 40px;"><span class="num">04</span> Our Difference · 撥經差異</p>
+    <h2 class="kicker-line">撥的<span class="flip">不是痛</span>，<br>是<span class="focus">通</span>。</h2>
+    <p class="kicker-en">It's not about pressure. It's about passage.</p>
+
+    <div class="compare">
+      <div class="compare-col other">
+        <div class="compare-label">MANY OTHERS</div>
+        <h3 class="compare-title">市面上的刮痧</h3>
+        <ul class="compare-list">
+          <li>刮表皮、求出痧越紅越好</li>
+          <li>痛感強，常造成瘀青</li>
+          <li>哪裡痠就刮哪裡，治標</li>
+          <li>僅處理局部肌肉緊繃</li>
+          <li>與節氣、食療脫節</li>
+        </ul>
+      </div>
+
+      <div class="compare-arrow">vs</div>
+
+      <div class="compare-col ours">
+        <div class="compare-label">LYS WAY</div>
+        <h3 class="compare-title">我們做的撥經</h3>
+        <ul class="compare-list">
+          <li>撥開經絡，疏通深層氣血</li>
+          <li>以「通」為目的，不以痛為證</li>
+          <li>由中樞、任督二脈溯源處理</li>
+          <li>整體調理：食療 × 節氣 × 經絡</li>
+          <li>從根本出發，效果可累積</li>
         </ul>
       </div>
     </div>
-    <div class="service-card reveal">
-      <div class="service-img">
-        <!-- Face meridian SVG -->
-        <svg viewBox="0 0 280 200" style="width:78%;height:78%" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="140" cy="100" rx="70" ry="75" stroke="#c4b4a4" stroke-width="1.2" fill="rgba(196,180,164,0.12)"/>
-          <ellipse cx="140" cy="100" rx="50" ry="54" stroke="#c4b4a4" stroke-width="0.9" fill="rgba(196,180,164,0.08)"/>
-          <ellipse cx="140" cy="100" rx="28" ry="30" stroke="#c4b4a4" stroke-width="0.7" fill="rgba(196,180,164,0.08)"/>
-          <circle cx="140" cy="100" r="10" fill="rgba(154,130,112,0.35)" stroke="#c4b4a4" stroke-width="1"/>
-          <circle cx="140" cy="100" r="3.5" fill="#9a8270" opacity=".7"/>
-          <!-- meridian dots -->
-          <circle cx="140" cy="25" r="2.5" fill="rgba(154,130,112,0.5)"/>
-          <circle cx="140" cy="175" r="2.5" fill="rgba(154,130,112,0.5)"/>
-          <circle cx="70" cy="100" r="2.5" fill="rgba(154,130,112,0.5)"/>
-          <circle cx="210" cy="100" r="2.5" fill="rgba(154,130,112,0.5)"/>
-        </svg>
+  </div>
+</section>
+
+<!-- ============ 服務套餐 · Services ============ -->
+<section class="services reveal" id="services">
+  <div class="container">
+    <div class="service-head">
+      <div>
+        <div class="section-label"><span class="num">05</span> Signature Treatments · 療程套餐</div>
+        <h2 class="section-title">為不同的<strong>身體狀態</strong>，<br>設計不同的調理路線。</h2>
       </div>
-      <div class="service-body">
-        <span class="service-tag">SERVICE B</span>
-        <h3 class="service-name">面部經絡禪意調理</h3>
-        <p class="service-desc">臉龐是心靈的映照。透過精準的面部撥筋手法，喚醒沉睡的肌膚生機。在如禪定般的寧靜中，讓緊繃的線條柔和，讓暗沉的氣色透亮，重拾由內而外的自信光采。</p>
-        <ul class="service-list">
-          <li>面部撥筋提拉緊緻</li>
-          <li>穴位按壓氣色調理</li>
-          <li>淡方面膜深層滋養</li>
-        </ul>
+      <div class="section-lead">
+        <p>每一套療程都是「順時、因地、循經」三者的具體組合。根據你的體質、節氣、當下需求，我們會協助你選擇最合適的一條調理路線。</p>
+      </div>
+    </div>
+
+    <div class="services-grid">
+      <!-- A 套餐 -->
+      <div class="service-card">
+        <div class="service-head-row">
+          <span class="service-letter">A.</span>
+          <div class="service-tags">
+            <span class="tag-chip tag-sage">循經</span>
+            <span class="tag-chip tag-earth">背腿主軸</span>
+          </div>
+        </div>
+        <h3 class="service-title">背 / 腿 撥經</h3>
+        <p class="service-sub">The Meridian Flow — Back &amp; Legs</p>
+        <div class="service-price">
+          <span class="original">NT$ 3,200</span>
+          <span class="member"><span class="unit">NT$</span>2,880</span>
+          <span class="duration">120 MIN</span>
+        </div>
+        <div class="service-items">
+          <div>頭部 撥經舒壓</div>
+          <div>肩頸 撥經舒壓</div>
+          <div>手部 舒壓撥經</div>
+          <div>背部 精雕撥經</div>
+          <div>臀部 提臀撥經</div>
+          <div>足底 撥經舒壓</div>
+          <div>小腿 舒壓撥經</div>
+          <div>大腿 雕塑撥經</div>
+        </div>
+      </div>
+
+      <!-- B 套餐 -->
+      <div class="service-card">
+        <div class="service-head-row">
+          <span class="service-letter">B.</span>
+          <div class="service-tags">
+            <span class="tag-chip tag-gold">因地</span>
+            <span class="tag-chip tag-earth">胸腹調理</span>
+          </div>
+        </div>
+        <h3 class="service-title">胸 / 腹 撥經</h3>
+        <p class="service-sub">The Inner Warmth — Chest &amp; Abdomen</p>
+        <div class="service-price">
+          <span class="original">NT$ 2,900</span>
+          <span class="member"><span class="unit">NT$</span>2,610</span>
+          <span class="duration">90 MIN</span>
+        </div>
+        <div class="service-items">
+          <div>胸部 疏通撥經</div>
+          <div>腹部 雕塑撥經</div>
+          <div>精油 艾灸貼</div>
+          <div>臍燭 暖子宮</div>
+        </div>
+      </div>
+
+      <!-- C 套餐 -->
+      <div class="service-card">
+        <div class="service-head-row">
+          <span class="service-letter">C.</span>
+          <div class="service-tags">
+            <span class="tag-chip tag-sage">循經</span>
+            <span class="tag-chip tag-gold">因地</span>
+            <span class="tag-chip tag-earth">全向調理</span>
+          </div>
+        </div>
+        <h3 class="service-title">背 / 腹 撥經</h3>
+        <p class="service-sub">The Root &amp; Core — Back &amp; Abdomen</p>
+        <div class="service-price">
+          <span class="original">NT$ 3,600</span>
+          <span class="member"><span class="unit">NT$</span>3,240</span>
+          <span class="duration">135 MIN</span>
+        </div>
+        <div class="service-items">
+          <div>頭部 撥經舒壓</div>
+          <div>肩頸 撥經舒壓</div>
+          <div>手部 舒壓撥經</div>
+          <div>背部 精雕撥經</div>
+          <div>臀部 提臀撥經</div>
+          <div>腹部 雕塑撥經</div>
+          <div>臍燭 暖宮</div>
+          <div>精油 艾灸貼</div>
+        </div>
+      </div>
+
+      <!-- D 套餐 -->
+      <div class="service-card">
+        <div class="service-head-row">
+          <span class="service-letter">D.</span>
+          <div class="service-tags">
+            <span class="tag-chip tag-sage">循經</span>
+            <span class="tag-chip tag-earth">背胸合調</span>
+          </div>
+        </div>
+        <h3 class="service-title">背 / 胸 撥經</h3>
+        <p class="service-sub">The Upper Flow — Back &amp; Chest</p>
+        <div class="service-price">
+          <span class="original">NT$ 3,600</span>
+          <span class="member"><span class="unit">NT$</span>3,240</span>
+          <span class="duration">135 MIN</span>
+        </div>
+        <div class="service-items">
+          <div>頭部 撥經舒壓</div>
+          <div>肩頸 撥經舒壓</div>
+          <div>手部 舒壓撥經</div>
+          <div>背部 精雕撥經</div>
+          <div>臀部 提臀撥經</div>
+          <div>胸部 疏通撥經</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- HERITAGE -->
-<section id="heritage">
-  <div class="heritage-text reveal">
-    <span class="label">EDUCATION</span>
-    <h2 class="section-title">傳承的溫度</h2>
-    <div class="divider"></div>
-    <p class="body-text">技藝的傳承，從來不只是手法的複製。而是將數十年淬煉的心法，一點一滴地灌注給下一代。</p>
-    <p class="body-text" style="margin-top:16px">LYS「撥筋師培育計畫」，承襲大師親授的嚴謹態度。從經絡走向的認識，到手感力道的細膩掌控，每一堂課都是師徒之間的真摯對話。</p>
-    <p class="body-text" style="margin-top:16px">我們見證了無數學員的蛻變──從茫然到自信，從生疏到精熟。這份傳承的溫度，正是 LYS 最珍貴的資產。</p>
-    <div class="heritage-stats">
-      <div class="stat-box">
-        <div class="stat-num">15+</div>
-        <div class="stat-label">年教學經驗</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num">200+</div>
-        <div class="stat-label">培育學員</div>
-      </div>
+<!-- ============ 單項價目 · Pricelist ============ -->
+<section class="pricelist reveal">
+  <div class="container">
+    <div class="pricelist-head">
+      <div class="section-label"><span class="num">06</span> À La Carte · 單項價目</div>
+      <h2 class="section-title">也可依當下<strong>身體所需</strong>，<br>單項調理。</h2>
+      <p class="section-lead" style="margin-top: 20px;">若你已清楚身體某個區塊最需要處理，也可以選擇單項服務。首次光臨可先體驗「新客順氣鬆經」，讓我們初步了解你的狀態。</p>
     </div>
+
+    <table class="price-table">
+      <thead>
+        <tr>
+          <th style="width: 45%;">項目 · Treatment</th>
+          <th>時間</th>
+          <th>原價</th>
+          <th>會員 9 折</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>新客順氣鬆經 <span class="badge-new">首次體驗</span></td>
+          <td class="duration">60 min</td>
+          <td class="original">1,280</td>
+          <td class="member"><span class="unit">NT$</span>0</td>
+        </tr>
+        <tr>
+          <td>臉部撥經</td>
+          <td class="duration">90 min</td>
+          <td class="original">3,200</td>
+          <td class="member"><span class="unit">NT$</span>2,880</td>
+        </tr>
+        <tr>
+          <td>背部撥經</td>
+          <td class="duration">90 min</td>
+          <td class="original">2,300</td>
+          <td class="member"><span class="unit">NT$</span>2,070</td>
+        </tr>
+        <tr>
+          <td>腿部撥經</td>
+          <td class="duration">90 min</td>
+          <td class="original">2,300</td>
+          <td class="member"><span class="unit">NT$</span>2,070</td>
+        </tr>
+        <tr>
+          <td>胸部撥筋</td>
+          <td class="duration">45 min</td>
+          <td class="original">1,500</td>
+          <td class="member"><span class="unit">NT$</span>1,350</td>
+        </tr>
+        <tr>
+          <td>腹部撥經</td>
+          <td class="duration">45 min</td>
+          <td class="original">1,500</td>
+          <td class="member"><span class="unit">NT$</span>1,350</td>
+        </tr>
+        <tr>
+          <td>胯部八髎撥經</td>
+          <td class="duration">30 min</td>
+          <td class="original">1,000</td>
+          <td class="member"><span class="unit">NT$</span>900</td>
+        </tr>
+        <tr>
+          <td>無煙艾灸</td>
+          <td class="duration">60 min</td>
+          <td class="original">1,100</td>
+          <td class="member"><span class="unit">NT$</span>990</td>
+        </tr>
+        <tr>
+          <td>循環美容儀</td>
+          <td class="duration">30 min</td>
+          <td class="original">500</td>
+          <td class="member"><span class="unit">NT$</span>450</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <div class="heritage-visual reveal">
-    <div class="heritage-card">
-      <div class="heritage-rings">
-        <!-- book/wisdom icon -->
-        <svg viewBox="0 0 80 80" width="60" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="20" y="22" width="42" height="36" rx="3" stroke="rgba(232,223,213,0.5)" stroke-width="1.5"/>
-          <rect x="26" y="28" width="28" height="3" rx="1.5" fill="rgba(232,223,213,0.35)"/>
-          <rect x="26" y="35" width="22" height="3" rx="1.5" fill="rgba(232,223,213,0.35)"/>
-          <rect x="26" y="42" width="18" height="3" rx="1.5" fill="rgba(232,223,213,0.35)"/>
-          <circle cx="40" cy="57" r="3" fill="rgba(232,223,213,0.5)"/>
-          <line x1="40" y1="18" x2="40" y2="22" stroke="rgba(232,223,213,0.4)" stroke-width="1.2" stroke-dasharray="2 2"/>
-        </svg>
+</section>
+
+<!-- ============ 門市 · Visit ============ -->
+<section class="visit reveal" id="visit">
+  <div class="container">
+    <div class="visit-wrap">
+      <div class="visit-info">
+        <div class="section-label"><span class="num">07</span> Visit Us · 門市資訊</div>
+        <h2 class="section-title">到店<strong>一方茶席</strong>，<br>從食療開始你的調理。</h2>
+
+        <div class="visit-details">
+          <div class="visit-row">
+            <span class="k">Address</span>
+            <span class="v">
+              <strong>桃園市中壢區志航街 217 號一樓</strong>
+              <span class="small">LYS 美妍 SPA 館</span>
+            </span>
+          </div>
+          <div class="visit-row">
+            <span class="k">Hours</span>
+            <span class="v">
+              <strong>09:00 — 19:00</strong>
+              <span class="small">建議提前以 LINE 預約，確保為你保留療程時段與茶席</span>
+            </span>
+          </div>
+          <div class="visit-row">
+            <span class="k">Contact</span>
+            <span class="v">
+              <strong>LINE @792hfhxt</strong>
+              <span class="small">預約、諮詢、節氣提醒皆可透過 LINE</span>
+            </span>
+          </div>
+        </div>
       </div>
-      <p style="position:absolute;bottom:14px;right:20px;font-size:.68rem;letter-spacing:.3em;color:rgba(232,223,213,.3)">傳 ‧ 承</p>
-    </div>
-    <div class="quote-box">
-      <p class="quote-text">「真正的技藝，是用心感受每一寸肌膚的呼吸。」</p>
-      <p class="quote-author">— LYS 創辦人</p>
+
+      <div class="line-card">
+        <div class="line-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M19.365 9.863c.349 0 .63.285.631.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25L12.31 10.6v2.326c0 .346-.279.629-.631.629-.346 0-.626-.283-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.064 2.79V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .346-.282.629-.631.629-.345 0-.627-.283-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.283-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+        </div>
+        <h4>LINE 預約</h4>
+        <p>點選下方按鈕或加入好友，<br>我們會為你安排最合適的療程時段。</p>
+        <span class="line-id">@792hfhxt</span>
+        <a href="https://line.me/R/ti/p/@792hfhxt" class="line-btn">
+          加入 LINE 好友
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7H13M13 7L7 1M13 7L7 13" stroke="white" stroke-width="1.5"/></svg>
+        </a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section id="contact">
-  <div class="reveal">
-    <span class="label">CONTACT</span>
-    <h2 class="section-title">開啟您的療癒之旅</h2>
-    <div class="divider"></div>
-    <p class="contact-sub">每一段旅程，都始於第一步的勇氣。<br>讓我們用溫柔的雙手，陪伴您找回身心的平衡與光采。</p>
-    <div class="contact-form">
-      <input class="form-input" type="text" placeholder="您的姓名">
-      <input class="form-input" type="tel" placeholder="聯絡電話">
-      <select class="form-select">
-        <option value="" disabled selected>請選擇諮詢項目</option>
-        <option>深層五行身心舒緩</option>
-        <option>面部經絡禪意調理</option>
-        <option>撥筋師培育課程</option>
-        <option>其他諮詢</option>
-      </select>
-      <textarea class="form-textarea" placeholder="想對我們說的話..."></textarea>
-      <button class="submit-btn">遞 出 預 約</button>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
+<!-- ============ Footer ============ -->
 <footer>
-  <p>© 2024 LYS 美妍 SPA 館 &nbsp;<span>｜</span>&nbsp; 以光為名，以手為藥</p>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="assets/logo-gold.png" alt="LYS">
+        <div class="motto">身若草木，養在根本</div>
+        <div class="submotto">順時而養 · 因地而食 · 循經而通</div>
+      </div>
+      <div class="footer-col">
+        <h5>Explore</h5>
+        <ul>
+          <li><a href="#philosophy">我們的信念</a></li>
+          <li><a href="#method">調理方法</a></li>
+          <li><a href="#seasonal">當令節氣</a></li>
+          <li><a href="#difference">撥經差異</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Visit</h5>
+        <ul>
+          <li><a href="#services">療程套餐</a></li>
+          <li><a href="#visit">門市地址</a></li>
+          <li><a href="https://line.me/R/ti/p/@792hfhxt">LINE 預約</a></li>
+          <li><a href="tel:+886">諮詢專線</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 LYS 美妍 SPA 館 · All rights reserved.</span>
+      <span>桃園市中壢區志航街 217 號一樓 · 09:00–19:00</span>
+    </div>
+  </div>
 </footer>
+
+<!-- Floating LINE -->
+<a href="https://line.me/R/ti/p/@792hfhxt" class="floating-line" aria-label="LINE 預約">
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M19.365 9.863c.349 0 .63.285.631.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25L12.31 10.6v2.326c0 .346-.279.629-.631.629-.346 0-.626-.283-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.064 2.79V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .346-.282.629-.631.629-.345 0-.627-.283-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.283-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+</a>
 
 <script>
   // Scroll reveal
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-  }, { threshold: 0.12 });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // Stagger cards
-  document.querySelectorAll('.service-card').forEach((card, i) => {
-    card.style.transitionDelay = `${i * 0.15}s`;
+  // Failsafe: force-reveal any element still hidden after 4s (handles fast scrolls, some browsers)
+  setTimeout(() => {
+    document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
+  }, 4000);
+
+  // Nav scroll
+  let lastScroll = 0;
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    const current = window.pageYOffset;
+    if (current > 40) {
+      nav.style.background = 'rgba(245, 237, 219, 0.95)';
+      nav.style.boxShadow = '0 1px 3px rgba(74, 47, 31, 0.08)';
+    } else {
+      nav.style.background = 'rgba(245, 237, 219, 0.88)';
+      nav.style.boxShadow = 'none';
+    }
+    lastScroll = current;
+  });
+
+  // Mobile toggle (minimal)
+  const mobileToggle = document.querySelector('.mobile-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  mobileToggle?.addEventListener('click', () => {
+    navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+    navLinks.style.position = 'absolute';
+    navLinks.style.top = '100%';
+    navLinks.style.left = '0';
+    navLinks.style.right = '0';
+    navLinks.style.flexDirection = 'column';
+    navLinks.style.padding = '24px';
+    navLinks.style.background = 'var(--paper)';
+    navLinks.style.gap = '20px';
+    navLinks.style.borderTop = '1px solid rgba(122,82,57,0.12)';
   });
 </script>
+
 </body>
 </html>
