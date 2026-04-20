@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>會員制度 — LYS 美妍 SPA 館</title>
+<meta name="description" content="LYS 會員制度：消費加 Google 五星好評即可成為 VIP 會員，享全館課程套餐 9 折、會員資格兩年自動延續、推薦好友雙方都有禮。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600;700;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .page-hero { position: relative; padding: 180px 0 120px; background: linear-gradient(180deg, var(--paper) 0%, var(--paper-warm) 100%); text-align: center; overflow: hidden; }
+  .page-hero h1 { font-family: var(--serif-zh); font-weight: 300; font-size: clamp(44px, 5.5vw, 72px); color: var(--earth-deep); letter-spacing: 0.08em; margin: 28px 0 20px; line-height: 1.3; }
+  .page-hero h1 strong { font-weight: 500; color: var(--earth); }
+  .page-hero .sub { font-family: var(--italic-en); font-style: italic; color: var(--earth); font-size: 17px; letter-spacing: 0.15em; max-width: 640px; margin: 0 auto; line-height: 1.8; }
+  .page-hero .motto { font-family: var(--serif-zh); color: var(--earth); font-size: 15px; letter-spacing: 0.35em; margin-top: 20px; }
+
+  .anchor-nav { position: sticky; top: 76px; background: rgba(245, 237, 219, 0.95); backdrop-filter: blur(12px); border-top: 1px solid rgba(122, 82, 57, 0.1); border-bottom: 1px solid rgba(122, 82, 57, 0.1); z-index: 10; }
+  .anchor-nav-inner { display: flex; justify-content: center; gap: 44px; padding: 20px 0; flex-wrap: wrap; }
+  .anchor-nav a { font-size: 13px; color: var(--ink-soft); text-decoration: none; letter-spacing: 0.25em; padding: 6px 0; border-bottom: 1px solid transparent; transition: all 0.3s; }
+  .anchor-nav a:hover { color: var(--earth-deep); border-bottom-color: var(--earth); }
+
+  .member-section { padding: 120px 0; position: relative; }
+  .member-section.alt { background: linear-gradient(180deg, var(--paper-warm) 0%, var(--paper) 100%); }
+  .member-head { max-width: 780px; margin: 0 auto 80px; text-align: center; }
+  .member-head .section-label { justify-content: center; }
+  .member-head .section-label::before, .member-head .section-label::after { content: ""; width: 32px; height: 1px; background: var(--earth); }
+  .member-head h2 { font-family: var(--serif-zh); font-weight: 300; font-size: clamp(34px, 4vw, 48px); color: var(--earth-deep); letter-spacing: 0.08em; margin: 24px 0 20px; line-height: 1.35; }
+  .member-head h2 strong { font-weight: 500; color: var(--earth); }
+  .member-head p { font-size: 16px; color: var(--ink-soft); line-height: 2; letter-spacing: 0.05em; }
+
+  /* 入會 */
+  .join-block { max-width: 860px; margin: 0 auto; background: var(--paper); border: 1px solid rgba(122, 82, 57, 0.2); padding: 64px 48px; position: relative; text-align: center; }
+  .join-block::before { content: ""; position: absolute; top: 0; left: 50%; width: 80px; height: 3px; background: linear-gradient(90deg, var(--earth), var(--gold)); transform: translateX(-50%); }
+  .join-formula { font-family: var(--serif-zh); font-size: clamp(22px, 2.6vw, 32px); color: var(--earth-deep); letter-spacing: 0.12em; margin-bottom: 48px; line-height: 1.5; font-weight: 400; }
+  .join-formula .op { color: var(--gold); margin: 0 10px; }
+  .join-formula .eq { color: var(--gold); font-family: var(--display-en); margin: 0 14px; }
+  .join-formula strong { color: var(--earth); font-weight: 500; background: linear-gradient(transparent 60%, rgba(200, 164, 122, 0.3) 60%); padding: 0 4px; }
+  .join-checklist { display: flex; flex-direction: column; gap: 14px; max-width: 520px; margin: 0 auto 40px; text-align: left; list-style: none; }
+  .join-checklist li { display: flex; align-items: flex-start; gap: 14px; font-size: 16px; color: var(--ink); letter-spacing: 0.05em; line-height: 1.6; }
+  .join-checklist li svg { flex-shrink: 0; margin-top: 4px; color: var(--sage); }
+  .join-period { display: inline-flex; align-items: center; gap: 10px; padding: 10px 24px; background: var(--paper-warm); border: 1px solid rgba(122, 82, 57, 0.2); border-radius: 999px; font-size: 13.5px; color: var(--earth-deep); letter-spacing: 0.15em; }
+  .join-period .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--clay); animation: pulse 2s ease-in-out infinite; }
+
+  /* 權益 3 卡 */
+  .benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1000px; margin: 0 auto; }
+  .benefit-card { background: var(--paper); border: 1px solid rgba(122, 82, 57, 0.2); padding: 56px 40px; text-align: center; position: relative; transition: all 0.4s; }
+  .benefit-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); transform: scaleX(0); transform-origin: center; transition: transform 0.5s; }
+  .benefit-card:hover { transform: translateY(-4px); box-shadow: 0 30px 60px -30px rgba(74, 47, 31, 0.2); }
+  .benefit-card:hover::before { transform: scaleX(1); }
+  .benefit-card .big { font-family: var(--serif-zh); font-size: 56px; color: var(--earth); letter-spacing: 0.06em; line-height: 1; margin-bottom: 16px; font-weight: 400; }
+  .benefit-card .big.en { font-family: var(--display-en); font-style: italic; }
+  .benefit-card h3 { font-family: var(--serif-zh); font-size: 17px; font-weight: 500; color: var(--earth-deep); letter-spacing: 0.12em; margin-bottom: 12px; }
+  .benefit-card p { font-size: 14px; color: var(--ink-soft); line-height: 1.9; letter-spacing: 0.04em; }
+
+  /* 續期與復效 */
+  .renew-wrap { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .renew-card { padding: 44px 36px; background: var(--paper); border: 1px solid rgba(122, 82, 57, 0.2); position: relative; }
+  .renew-card.active { background: linear-gradient(160deg, rgba(139, 154, 126, 0.12), rgba(139, 154, 126, 0.02)); border-color: rgba(139, 154, 126, 0.4); }
+  .renew-card.restore { background: linear-gradient(160deg, rgba(184, 101, 74, 0.08), rgba(184, 101, 74, 0.02)); border-color: rgba(184, 101, 74, 0.3); }
+  .renew-card .tag { display: inline-block; font-family: var(--italic-en); font-style: italic; font-size: 12px; letter-spacing: 0.3em; margin-bottom: 20px; padding-bottom: 6px; border-bottom: 1px solid currentColor; }
+  .renew-card.active .tag { color: var(--moss-deep); }
+  .renew-card.restore .tag { color: var(--clay); }
+  .renew-card h3 { font-family: var(--serif-zh); font-size: 22px; font-weight: 500; color: var(--earth-deep); letter-spacing: 0.08em; margin-bottom: 16px; line-height: 1.5; }
+  .renew-card p { font-size: 15px; color: var(--ink-soft); line-height: 2; letter-spacing: 0.04em; }
+  .renew-card .highlight { margin-top: 20px; padding: 12px 16px; background: rgba(255, 255, 255, 0.5); border-left: 3px solid currentColor; font-size: 14px; letter-spacing: 0.04em; line-height: 1.7; }
+  .renew-card.active .highlight { color: var(--moss-deep); }
+  .renew-card.restore .highlight { color: var(--clay); border-color: var(--clay); }
+
+  /* 推薦 */
+  .referral-intro { max-width: 780px; margin: 0 auto 60px; text-align: center; }
+  .referral-intro p { font-size: 16px; color: var(--ink-soft); line-height: 2; letter-spacing: 0.05em; }
+  .referral-pair { display: grid; grid-template-columns: 1fr auto 1fr; gap: 32px; max-width: 900px; margin: 0 auto 80px; align-items: stretch; }
+  .ref-card { padding: 44px 36px; background: var(--paper); border: 1px solid rgba(122, 82, 57, 0.2); text-align: center; }
+  .ref-card .label { font-family: var(--italic-en); font-style: italic; font-size: 13px; color: var(--earth); letter-spacing: 0.25em; margin-bottom: 16px; }
+  .ref-card h4 { font-family: var(--serif-zh); font-size: 20px; font-weight: 500; color: var(--earth-deep); letter-spacing: 0.1em; margin-bottom: 14px; }
+  .ref-card .reward { font-family: var(--display-en); font-size: 36px; font-weight: 400; color: var(--earth); line-height: 1; margin-bottom: 12px; }
+  .ref-card .note { font-size: 13.5px; color: var(--ink-soft); letter-spacing: 0.08em; line-height: 1.7; }
+  .ref-plus { display: flex; align-items: center; justify-content: center; font-family: var(--display-en); font-size: 32px; color: var(--gold); font-weight: 300; }
+
+  .tier-title { max-width: 900px; margin: 0 auto 24px; display: flex; align-items: center; gap: 20px; font-family: var(--italic-en); font-style: italic; font-size: 14px; color: var(--earth); letter-spacing: 0.3em; text-transform: uppercase; }
+  .tier-title::before, .tier-title::after { content: ""; flex: 1; height: 1px; background: rgba(122, 82, 57, 0.2); }
+  .tier-table { max-width: 900px; margin: 0 auto; background: var(--paper); border: 1px solid rgba(122, 82, 57, 0.2); }
+  .tier-row { display: grid; grid-template-columns: 1fr 1.4fr 1fr 1fr; padding: 24px 32px; gap: 24px; align-items: center; border-bottom: 1px solid rgba(122, 82, 57, 0.1); transition: background 0.3s; }
+  .tier-row:last-child { border-bottom: none; }
+  .tier-row:hover:not(.header) { background: var(--paper-warm); }
+  .tier-row.header { background: var(--earth-deep); color: var(--paper); padding: 20px 32px; }
+  .tier-row.header .h { font-family: var(--italic-en); font-style: italic; font-size: 12px; letter-spacing: 0.25em; color: var(--gold); }
+  .tier-row .count { font-family: var(--serif-zh); font-size: 17px; color: var(--earth-deep); letter-spacing: 0.08em; font-weight: 500; }
+  .tier-row .title-badge { display: inline-flex; align-items: center; gap: 10px; font-family: var(--serif-zh); font-size: 16px; color: var(--earth); letter-spacing: 0.08em; font-weight: 500; }
+  .tier-row .title-badge::before { content: "✦"; color: var(--gold); font-size: 13px; }
+  .tier-row .reward-per { font-family: var(--display-en); font-size: 20px; color: var(--earth); font-weight: 400; }
+  .tier-row .cap { font-size: 14px; color: var(--ink-soft); letter-spacing: 0.08em; }
+  .tier-row .cap.unlimited { color: var(--clay); font-weight: 500; }
+
+  /* FAQ */
+  .faq { max-width: 800px; margin: 0 auto; }
+  .faq-item { border-bottom: 1px solid rgba(122, 82, 57, 0.15); }
+  .faq-q { padding: 28px 0; font-family: var(--serif-zh); font-size: 18px; color: var(--earth-deep); letter-spacing: 0.06em; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 20px; list-style: none; font-weight: 500; }
+  .faq-q::-webkit-details-marker { display: none; }
+  .faq-q::after { content: "+"; font-family: var(--display-en); font-size: 24px; color: var(--earth); font-weight: 300; transition: transform 0.3s; }
+  details[open] .faq-q::after { transform: rotate(45deg); }
+  .faq-a { padding: 0 0 28px; font-size: 15px; color: var(--ink-soft); line-height: 2; letter-spacing: 0.04em; }
+
+  .fine-print { text-align: center; font-size: 13px; color: var(--ink-soft); letter-spacing: 0.15em; margin-top: 60px; opacity: 0.7; font-style: italic; }
+
+  @media (max-width: 960px) {
+    .page-hero { padding: 130px 0 70px; }
+    .member-section { padding: 80px 0; }
+    .join-block { padding: 48px 28px; }
+    .join-formula { font-size: 20px; letter-spacing: 0.08em; }
+    .benefits-grid { grid-template-columns: 1fr; gap: 16px; }
+    .renew-wrap { grid-template-columns: 1fr; gap: 20px; }
+    .referral-pair { grid-template-columns: 1fr; gap: 16px; }
+    .ref-plus { padding: 10px 0; transform: rotate(90deg); }
+    .tier-row { grid-template-columns: 1fr; gap: 8px; padding: 20px; }
+    .tier-row.header { display: none; }
+    .anchor-nav-inner { gap: 20px; padding: 14px 0; }
+    .anchor-nav a { font-size: 12px; letter-spacing: 0.2em; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/logo-brown.png" alt="LYS 美妍 SPA 館">
+      <span class="brand-text"><span class="brand-en">LYS</span><span class="brand-zh">美妍 SPA 館</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html#philosophy">信念</a>
+      <a href="index.html#seasonal">節氣</a>
+      <a href="index.html#services">療程</a>
+      <a href="promotions.html">活動</a>
+      <a href="membership.html" style="color: var(--earth-deep); font-weight: 500;">會員</a>
+      <a href="academy.html">教學</a>
+      <a href="https://line.me/R/ti/p/@792hfhxt" class="nav-cta">LINE 預約</a>
+    </div>
+    <button class="mobile-toggle" aria-label="選單"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="section-label" style="justify-content: center;"><span class="num">♡</span> Membership · 會員制度</div>
+    <h1>讓好的調理，<br>成為<strong>日常</strong>。</h1>
+    <p class="sub">一次性的療程讓身體放鬆；<br>持續的陪伴，才能讓身體真正改變。</p>
+    <p class="motto">遇 見 純 粹 · 步 步 扎 實</p>
+  </div>
+</section>
+
+<div class="anchor-nav">
+  <div class="anchor-nav-inner">
+    <a href="#join">入會辦法</a>
+    <a href="#benefits">會員權益</a>
+    <a href="#renew">續期與復效</a>
+    <a href="#referral">推薦好友</a>
+    <a href="#faq">常見問題</a>
+  </div>
+</div>
+
+<!-- 入會辦法 -->
+<section class="member-section" id="join">
+  <div class="container">
+    <div class="member-head">
+      <div class="section-label"><span class="num">01</span> How to Join · 入會辦法</div>
+      <h2>一杯茶的時間，<br><strong>就能加入 LYS VIP 會員</strong>。</h2>
+      <p>不需要繁瑣的註冊流程，也不收任何入會費。完成一次療程、留下一則真實的 Google 心得，這份信任就是你和我們之間的會員關係。</p>
+    </div>
+
+    <div class="join-block">
+      <p class="join-formula">
+        消費<span class="op">+</span>Google 五星好評<span class="eq">=</span><strong>VIP 會員</strong>
+      </p>
+
+      <ul class="join-checklist">
+        <li>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>
+          <span>無入會費，零門檻</span>
+        </li>
+        <li>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>
+          <span>消費任一套餐，於 Google 留下五星好評即可加入</span>
+        </li>
+        <li>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>
+          <span>會員資格兩年內有消費即自動延續</span>
+        </li>
+      </ul>
+
+      <div class="join-period">
+        <span class="dot"></span>
+        <span>活動期間：即日起至 2026 年 6 月底</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 會員權益 -->
+<section class="member-section alt" id="benefits">
+  <div class="container">
+    <div class="member-head">
+      <div class="section-label"><span class="num">02</span> Member Benefits · 會員權益</div>
+      <h2>一次入會，<strong>三重守護</strong>。</h2>
+    </div>
+
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="big">9折</div>
+        <h3>全館課程套餐</h3>
+        <p>所有撥經療程、單項服務、加購項目，<br>會員皆享 9 折專屬優惠。</p>
+      </div>
+      <div class="benefit-card">
+        <div class="big">2年</div>
+        <h3>會員資格延續</h3>
+        <p>兩年內有任一消費紀錄，<br>會員資格自動延續，不必再次申請。</p>
+      </div>
+      <div class="benefit-card">
+        <div class="big en">$</div>
+        <h3>不定期儲值檔期</h3>
+        <p>季節限定的儲值優惠活動，<br>會員專屬得知，透過 LINE 公告發布。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 續期與復效 -->
+<section class="member-section" id="renew">
+  <div class="container">
+    <div class="member-head">
+      <div class="section-label"><span class="num">03</span> Renewal · 續期與復效</div>
+      <h2>你的調理節奏，<strong>由你決定</strong>。</h2>
+      <p>會員資格以兩年為一個週期。只要在期間內有消費紀錄，系統便自動為你延續。如果停下了一段時間，重新回來也有簡單的方式。</p>
+    </div>
+
+    <div class="renew-wrap">
+      <div class="renew-card active">
+        <span class="tag">Auto-Renew · 自動延續</span>
+        <h3>兩年內<br>有任一消費紀錄</h3>
+        <p>會員資格自動延續兩年，不須任何手續。每一次回來，都是讓這份關係自然延長的證明。</p>
+        <div class="highlight">只要你沒有停下照顧自己，我們就一直在。</div>
+      </div>
+
+      <div class="renew-card restore">
+        <span class="tag">Restore · 復效方式</span>
+        <h3>若兩年內無消費，<br>資格自動失效</h3>
+        <p>失效後仍可隨時復效。購買任一套餐，並支付復效費 <strong style="color: var(--earth-deep);">NT$ 500</strong>，會員資格即重新起算兩年。</p>
+        <div class="highlight">復效 = 一套餐 + 復效費 500 元</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 推薦好友 -->
+<section class="member-section alt" id="referral">
+  <div class="container">
+    <div class="member-head">
+      <div class="section-label"><span class="num">04</span> Refer a Friend · 推薦好友</div>
+      <h2>真正好的東西，<strong>值得分享</strong>。</h2>
+    </div>
+
+    <div class="referral-intro">
+      <p>好友在入會時填寫你的電話號碼，成功加入後，雙方都有禮。讓身邊重要的人一起進入這個節奏，是我們對會員最直接的感謝。</p>
+    </div>
+
+    <div class="referral-pair">
+      <div class="ref-card">
+        <div class="label">YOUR FRIEND GETS</div>
+        <h4>好友獲得</h4>
+        <div class="reward">NT$ 100</div>
+        <p class="note">儲值金（一次性）<br>入會即可享用</p>
+      </div>
+
+      <div class="ref-plus">+</div>
+
+      <div class="ref-card">
+        <div class="label">YOU GET</div>
+        <h4>您獲得</h4>
+        <div class="reward">儲值金 + 頭銜</div>
+        <p class="note">依介紹人數累計<br>詳見下方獎勵分級</p>
+      </div>
+    </div>
+
+    <p class="tier-title">介紹獎勵分級 · Referral Tiers</p>
+
+    <div class="tier-table">
+      <div class="tier-row header">
+        <span class="h">介紹人數</span>
+        <span class="h">榮譽頭銜</span>
+        <span class="h">每人獎勵</span>
+        <span class="h">該級距最高</span>
+      </div>
+      <div class="tier-row">
+        <span class="count">第 1 – 3 人</span>
+        <span class="title-badge">撥經推廣之星</span>
+        <span class="reward-per">$100 / 人</span>
+        <span class="cap">最高 $300</span>
+      </div>
+      <div class="tier-row">
+        <span class="count">第 4 – 6 人</span>
+        <span class="title-badge">撥經口碑達人</span>
+        <span class="reward-per">$150 / 人</span>
+        <span class="cap">最高 $450</span>
+      </div>
+      <div class="tier-row">
+        <span class="count">第 7 人起</span>
+        <span class="title-badge">撥經推廣大使</span>
+        <span class="reward-per">$200 / 人</span>
+        <span class="cap unlimited">無上限</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="member-section" id="faq">
+  <div class="container">
+    <div class="member-head">
+      <div class="section-label"><span class="num">05</span> FAQ · 常見問題</div>
+      <h2>你可能想問。</h2>
+    </div>
+
+    <div class="faq">
+      <details class="faq-item">
+        <summary class="faq-q">如何成為 LYS 會員？需要入會費嗎？</summary>
+        <div class="faq-a">完全免費。只要消費過任一套餐，並於 Google 留下五星好評，即可成為 VIP 會員。目前活動期間為即日起至 2026 年 6 月底。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">會員資格會過期嗎？</summary>
+        <div class="faq-a">會員資格以兩年為一個週期。兩年內只要有任一消費紀錄，資格便自動延續兩年，不需重新申請。若兩年內無消費，資格會自動失效。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">失效後還能再成為會員嗎？</summary>
+        <div class="faq-a">可以。購買任一套餐，並支付復效費 500 元，會員資格即重新起算兩年。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">推薦好友的獎勵如何領取？</summary>
+        <div class="faq-a">好友在入會時填寫你的電話號碼即可自動登記。好友成功入會後，雙方的獎勵會同步生效——好友獲得 100 元儲值金，你則依累計介紹人數獲得對應的儲值金回饋與榮譽頭銜，儲值金自動存入你的帳戶。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">儲值檔期活動什麼時候會有？</summary>
+        <div class="faq-a">儲值優惠為不定期檔期活動，通常搭配節氣或品牌週年，會員可優先透過 LINE 官方帳號 @792hfhxt 得知消息。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">忘記帶會員卡／不確定自己是不是會員怎麼辦？</summary>
+        <div class="faq-a">來店時報上姓名或電話即可查詢，也歡迎透過 LINE 官方帳號 @792hfhxt 詢問。</div>
+      </details>
+    </div>
+
+    <p class="fine-print">本制度 LYS 保留調整權利，異動將提前於社群公告。</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="padding: 120px 0; background: var(--earth-deep); text-align: center; color: var(--paper);">
+  <div class="container">
+    <p style="font-family: var(--italic-en); font-style: italic; font-size: 14px; letter-spacing: 0.3em; color: var(--gold); margin-bottom: 24px;">Start your journey</p>
+    <h3 style="font-family: var(--serif-zh); font-weight: 300; font-size: clamp(30px, 4vw, 44px); color: var(--paper); letter-spacing: 0.08em; margin-bottom: 40px;">從一次<strong style="color: var(--gold); font-weight: 500;">新客體驗</strong>開始。</h3>
+    <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+      <a href="promotions.html#new-customer" style="display: inline-flex; align-items: center; gap: 12px; padding: 16px 32px; background: var(--gold); color: var(--earth-deep); text-decoration: none; border-radius: 999px; font-size: 14px; letter-spacing: 0.25em; font-weight: 500;">查看新客活動</a>
+      <a href="https://line.me/R/ti/p/@792hfhxt" style="display: inline-flex; align-items: center; gap: 12px; padding: 16px 32px; border: 1px solid var(--gold); color: var(--gold); text-decoration: none; border-radius: 999px; font-size: 14px; letter-spacing: 0.25em;">LINE 洽詢</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="assets/logo-gold.png" alt="LYS">
+        <div class="motto">身若草木，養在根本</div>
+        <div class="submotto">順時而養 · 因地而食 · 循經而通</div>
+      </div>
+      <div class="footer-col">
+        <h5>Explore</h5>
+        <ul>
+          <li><a href="index.html#philosophy">我們的信念</a></li>
+          <li><a href="index.html#method">調理方法</a></li>
+          <li><a href="index.html#seasonal">當令節氣</a></li>
+          <li><a href="index.html#difference">撥經差異</a></li>
+          <li><a href="academy.html">撥經教學招生</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Visit</h5>
+        <ul>
+          <li><a href="index.html#services">療程套餐</a></li>
+          <li><a href="promotions.html">當期活動</a></li>
+          <li><a href="membership.html">會員與儲值</a></li>
+          <li><a href="index.html#visit">門市地址</a></li>
+          <li><a href="https://line.me/R/ti/p/@792hfhxt">LINE 預約</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 LYS 美妍 SPA 館 · All rights reserved.</span>
+      <span>桃園市中壢區志航街 217 號一樓 · 09:00–19:00</span>
+    </div>
+  </div>
+</footer>
+
+<a href="https://line.me/R/ti/p/@792hfhxt" class="floating-line" aria-label="LINE 預約">
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M19.365 9.863c.349 0 .63.285.631.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25L12.31 10.6v2.326c0 .346-.279.629-.631.629-.346 0-.626-.283-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.064 2.79V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .346-.282.629-.631.629-.345 0-.627-.283-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.283-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+</a>
+
+<script>
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 40) {
+      nav.style.background = 'rgba(245, 237, 219, 0.95)';
+      nav.style.boxShadow = '0 1px 3px rgba(74, 47, 31, 0.08)';
+    } else {
+      nav.style.background = 'rgba(245, 237, 219, 0.88)';
+      nav.style.boxShadow = 'none';
+    }
+  });
+</script>
+
+</body>
+</html>

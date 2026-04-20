@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>當期活動 — LYS 美妍 SPA 館</title>
+<meta name="description" content="LYS 當期活動：新客順氣鬆經 NT$1,280 體驗價、奢寵組合全身撥經 2 小時 NT$3,200。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600;700;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* 活動頁專屬 */
+  .page-hero {
+    position: relative;
+    padding: 160px 0 100px;
+    background: linear-gradient(180deg, var(--paper) 0%, var(--paper-warm) 100%);
+    overflow: hidden;
+  }
+  .page-hero::before {
+    content: "";
+    position: absolute;
+    top: 10%; right: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(184, 101, 74, 0.08), transparent 70%);
+    pointer-events: none;
+  }
+  .page-hero-inner {
+    position: relative;
+    text-align: center;
+    z-index: 2;
+  }
+  .page-hero h1 {
+    font-family: var(--serif-zh);
+    font-weight: 300;
+    font-size: clamp(42px, 5.2vw, 68px);
+    color: var(--earth-deep);
+    letter-spacing: 0.08em;
+    margin: 24px 0 16px;
+    line-height: 1.3;
+  }
+  .page-hero h1 strong { font-weight: 500; color: var(--clay); }
+  .page-hero .sub {
+    font-family: var(--italic-en);
+    font-style: italic;
+    color: var(--earth);
+    font-size: 17px;
+    letter-spacing: 0.15em;
+  }
+
+  .activity {
+    padding: 100px 0;
+    position: relative;
+  }
+  .activity:nth-child(even) {
+    background: linear-gradient(180deg, var(--paper) 0%, var(--paper-warm) 50%, var(--paper) 100%);
+  }
+
+  .activity-wrap {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .activity:nth-child(even) .activity-wrap {
+    grid-template-columns: 1fr 1.1fr;
+  }
+  .activity:nth-child(even) .activity-media { order: 2; }
+
+  .activity-media {
+    position: relative;
+    aspect-ratio: 5/4;
+    overflow: hidden;
+    border-radius: 4px;
+    box-shadow: 0 30px 60px -30px rgba(74, 47, 31, 0.35);
+  }
+  .activity-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s ease;
+  }
+  .activity-media:hover img { transform: scale(1.03); }
+
+  .activity-content .eyebrow {
+    display: inline-block;
+    font-family: var(--italic-en);
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    color: var(--clay);
+    margin-bottom: 20px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(184, 101, 74, 0.3);
+  }
+  .activity-content h2 {
+    font-family: var(--serif-zh);
+    font-weight: 300;
+    font-size: clamp(32px, 3.8vw, 44px);
+    color: var(--earth-deep);
+    letter-spacing: 0.06em;
+    line-height: 1.35;
+    margin-bottom: 16px;
+  }
+  .activity-content h2 strong { font-weight: 500; color: var(--earth); }
+
+  .activity-content .tagline {
+    font-family: var(--italic-en);
+    font-style: italic;
+    color: var(--earth);
+    font-size: 16px;
+    letter-spacing: 0.12em;
+    margin-bottom: 32px;
+    opacity: 0.8;
+  }
+
+  .activity-price-block {
+    display: flex;
+    align-items: flex-end;
+    gap: 14px;
+    margin-bottom: 36px;
+    padding: 24px 0;
+    border-top: 1px solid rgba(122, 82, 57, 0.2);
+    border-bottom: 1px solid rgba(122, 82, 57, 0.2);
+  }
+  .activity-price-block .currency {
+    font-size: 14px;
+    color: var(--ink-soft);
+    letter-spacing: 0.18em;
+    padding-bottom: 10px;
+  }
+  .activity-price-block .amount {
+    font-family: var(--display-en);
+    font-size: clamp(52px, 6vw, 72px);
+    font-weight: 400;
+    color: var(--earth-deep);
+    line-height: 1;
+  }
+  .activity-price-block .detail {
+    font-size: 14px;
+    color: var(--ink-soft);
+    letter-spacing: 0.15em;
+    padding-bottom: 10px;
+  }
+
+  .activity-includes {
+    margin-bottom: 32px;
+  }
+  .activity-includes h4 {
+    font-family: var(--italic-en);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--earth);
+    letter-spacing: 0.3em;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+  .activity-includes .items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 24px;
+    font-size: 15px;
+    color: var(--ink);
+    line-height: 2;
+    letter-spacing: 0.05em;
+  }
+  .activity-includes .items span::before {
+    content: "—";
+    color: var(--gold);
+    margin-right: 10px;
+    opacity: 0.8;
+  }
+
+  .activity-bonus {
+    padding: 20px 24px;
+    background: linear-gradient(135deg, rgba(200, 164, 122, 0.12), rgba(200, 164, 122, 0.04));
+    border-left: 3px solid var(--gold);
+    border-radius: 4px;
+    margin-bottom: 32px;
+  }
+  .activity-bonus h5 {
+    font-family: var(--serif-zh);
+    font-size: 14px;
+    color: var(--earth);
+    letter-spacing: 0.25em;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .activity-bonus p {
+    font-size: 15px;
+    color: var(--ink);
+    letter-spacing: 0.05em;
+    line-height: 1.8;
+  }
+
+  .activity-perks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 36px;
+  }
+  .perk {
+    padding: 8px 16px;
+    background: var(--paper-warm);
+    border: 1px solid rgba(122, 82, 57, 0.2);
+    border-radius: 999px;
+    font-size: 13px;
+    color: var(--earth-deep);
+    letter-spacing: 0.12em;
+  }
+  .perk::before {
+    content: "✓";
+    color: var(--sage);
+    margin-right: 8px;
+    font-weight: 700;
+  }
+
+  .activity-urgency {
+    font-size: 13px;
+    color: var(--clay);
+    letter-spacing: 0.2em;
+    margin-bottom: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .activity-urgency::before {
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--clay);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .activity-cta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 960px) {
+    .page-hero { padding: 120px 0 60px; }
+    .activity { padding: 70px 0; }
+    .activity-wrap, .activity:nth-child(even) .activity-wrap {
+      grid-template-columns: 1fr; gap: 40px;
+    }
+    .activity:nth-child(even) .activity-media { order: 0; }
+    .activity-includes .items { grid-template-columns: 1fr; }
+    .activity-price-block { flex-wrap: wrap; gap: 8px; }
+    .activity-price-block .amount { font-size: 48px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/logo-brown.png" alt="LYS 美妍 SPA 館">
+      <span class="brand-text">
+        <span class="brand-en">LYS</span>
+        <span class="brand-zh">美妍 SPA 館</span>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html#philosophy">信念</a>
+      <a href="index.html#seasonal">節氣</a>
+      <a href="index.html#services">療程</a>
+      <a href="promotions.html" style="color: var(--earth-deep); font-weight: 500;">活動</a>
+      <a href="membership.html">會員</a>
+      <a href="academy.html">教學</a>
+      <a href="https://line.me/R/ti/p/@792hfhxt" class="nav-cta">LINE 預約</a>
+    </div>
+    <button class="mobile-toggle" aria-label="選單">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ============ PAGE HERO ============ -->
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-inner">
+      <div class="section-label" style="justify-content: center;"><span class="num">★</span> Current Promotions · 當期活動</div>
+      <h1>新朋友的起點，<br><strong>老朋友的心意</strong>。</h1>
+      <p class="sub">Two seasonal offerings for the body that remembers itself.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 新客體驗 ============ -->
+<section class="activity" id="new-customer">
+  <div class="container">
+    <div class="activity-wrap">
+      <div class="activity-media">
+        <img src="assets/promo-new-customer.jpg" alt="新客順氣鬆經 體驗價 NT$1,280">
+      </div>
+      <div class="activity-content">
+        <span class="eyebrow">01 · 新人專屬 · For New Friends</span>
+        <h2>身體鬆筋<strong>一小時</strong>，<br>新客體驗優惠。</h2>
+        <p class="tagline">A gentle introduction to how we work.</p>
+
+        <div class="activity-price-block">
+          <span class="currency">NT$</span>
+          <span class="amount">1,280</span>
+          <span class="detail">／ 60 分鐘</span>
+        </div>
+
+        <p style="font-size: 15.5px; color: var(--ink-soft); line-height: 2; letter-spacing: 0.04em; margin-bottom: 28px;">
+          第一次來 LYS，我們會先透過一小時的順氣鬆經，了解你的身體狀態——哪裡緊、哪裡虛、哪裡的氣血走不動。這不是單純放鬆，而是一次完整的初診，讓你認識撥經與坊間刮痧的差別。
+        </p>
+
+        <div class="activity-bonus">
+          <h5>✦ 驚喜升級</h5>
+          <p>於 Google 留下體驗心得，即可<strong style="color: var(--earth-deep);">直接升級為終身會員</strong>，享有後續所有會員專屬優惠。</p>
+        </div>
+
+        <div class="activity-cta">
+          <a href="https://line.me/R/ti/p/@792hfhxt" class="btn-primary">
+            LINE 預約體驗
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7H13M13 7L7 1M13 7L7 13" stroke="currentColor" stroke-width="1.5"/></svg>
+          </a>
+          <a href="tel:0905915279" class="btn-ghost">或撥 0905-915-279</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 奢寵組合 ============ -->
+<section class="activity" id="luxury">
+  <div class="container">
+    <div class="activity-wrap">
+      <div class="activity-media">
+        <img src="assets/promo-luxury.jpg" alt="奢寵組合 全身撥經 2 小時 NT$3,200">
+      </div>
+      <div class="activity-content">
+        <span class="eyebrow">02 · 全新升級 · For Our Returning Friends</span>
+        <h2>奢寵組合 ·<br><strong>全身撥經 2 小時</strong>。</h2>
+        <p class="tagline">A complete meridian journey, head to toe.</p>
+
+        <div class="activity-price-block">
+          <span class="currency">NT$</span>
+          <span class="amount">3,200</span>
+          <span class="detail">／ 120 分鐘</span>
+        </div>
+
+        <div class="activity-includes">
+          <h4>Includes · 療程內容</h4>
+          <div class="items">
+            <span>頭部 撥經舒壓</span>
+            <span>背部 精雕撥經</span>
+            <span>肩頸 撥經舒壓</span>
+            <span>腰部 深層疏通</span>
+            <span>手部 舒壓撥經</span>
+            <span>臀部 提臀撥經</span>
+            <span>足底 撥經舒壓</span>
+            <span>小腿 舒壓撥經</span>
+            <span>大腿 雕塑撥經</span>
+          </div>
+        </div>
+
+        <div class="activity-bonus">
+          <h5>✦ 驚喜贈送</h5>
+          <p>加贈<strong style="color: var(--earth-deep);">煥顏保濕深層補水療程</strong>，從內而外的調理後，讓肌膚同步得到滋養。</p>
+        </div>
+
+        <div class="activity-perks">
+          <span class="perk">瓦解僵硬酸痛</span>
+          <span class="perk">深層釋放疲憊壓力</span>
+          <span class="perk">喚醒水潤發光肌</span>
+        </div>
+
+        <div class="activity-urgency">每日限量搶約 · 額滿即止</div>
+
+        <div class="activity-cta">
+          <a href="https://line.me/R/ti/p/@792hfhxt" class="btn-primary">
+            LINE 立即預約
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7H13M13 7L7 1M13 7L7 13" stroke="currentColor" stroke-width="1.5"/></svg>
+          </a>
+          <a href="tel:0905915279" class="btn-ghost">或撥 0905-915-279</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA BOTTOM ============ -->
+<section style="padding: 120px 0; background: linear-gradient(180deg, var(--paper-warm) 0%, var(--earth-deep) 100%); text-align: center; color: var(--paper);">
+  <div class="container">
+    <p style="font-family: var(--italic-en); font-style: italic; font-size: 14px; letter-spacing: 0.3em; color: var(--gold); margin-bottom: 24px;">Don't miss out</p>
+    <h3 style="font-family: var(--serif-zh); font-weight: 300; font-size: clamp(32px, 4vw, 48px); color: var(--paper); letter-spacing: 0.08em; margin-bottom: 32px;">活動有限，<strong style="color: var(--gold); font-weight: 500;">給自己一次真正的調理</strong>。</h3>
+    <a href="https://line.me/R/ti/p/@792hfhxt" style="display: inline-flex; align-items: center; gap: 12px; padding: 18px 40px; background: var(--gold); color: var(--earth-deep); text-decoration: none; border-radius: 999px; font-size: 14px; letter-spacing: 0.25em; font-weight: 500; transition: all 0.3s;">
+      LINE 預約 @792HFHXT
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7H13M13 7L7 1M13 7L7 13" stroke="currentColor" stroke-width="1.5"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ============ Footer ============ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="assets/logo-gold.png" alt="LYS">
+        <div class="motto">身若草木，養在根本</div>
+        <div class="submotto">順時而養 · 因地而食 · 循經而通</div>
+      </div>
+      <div class="footer-col">
+        <h5>Explore</h5>
+        <ul>
+          <li><a href="index.html#philosophy">我們的信念</a></li>
+          <li><a href="index.html#method">調理方法</a></li>
+          <li><a href="index.html#seasonal">當令節氣</a></li>
+          <li><a href="index.html#difference">撥經差異</a></li>
+          <li><a href="academy.html">撥經教學招生</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Visit</h5>
+        <ul>
+          <li><a href="index.html#services">療程套餐</a></li>
+          <li><a href="promotions.html">當期活動</a></li>
+          <li><a href="membership.html">會員與儲值</a></li>
+          <li><a href="index.html#visit">門市地址</a></li>
+          <li><a href="https://line.me/R/ti/p/@792hfhxt">LINE 預約</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 LYS 美妍 SPA 館 · All rights reserved.</span>
+      <span>桃園市中壢區志航街 217 號一樓 · 09:00–19:00</span>
+    </div>
+  </div>
+</footer>
+
+<a href="https://line.me/R/ti/p/@792hfhxt" class="floating-line" aria-label="LINE 預約">
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M19.365 9.863c.349 0 .63.285.631.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25L12.31 10.6v2.326c0 .346-.279.629-.631.629-.346 0-.626-.283-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.064 2.79V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .346-.282.629-.631.629-.345 0-.627-.283-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.283-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+</a>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  setTimeout(() => { document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible')); }, 4000);
+
+  let lastScroll = 0;
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    const current = window.pageYOffset;
+    if (current > 40) { nav.style.background = 'rgba(245, 237, 219, 0.95)'; nav.style.boxShadow = '0 1px 3px rgba(74, 47, 31, 0.08)'; }
+    else { nav.style.background = 'rgba(245, 237, 219, 0.88)'; nav.style.boxShadow = 'none'; }
+  });
+</script>
+
+</body>
+</html>
